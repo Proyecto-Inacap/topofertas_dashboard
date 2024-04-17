@@ -18,7 +18,7 @@ export const useProducts = ({ limit, page }: Props) => {
   const query = qs.stringify({ limit, page })
 
   const { data, isLoading, mutate } = useSWR<Response>(`/products?${query}`, fetcher)
-  console.log(data)
+
   return {
     products: data?.products,
     count: data?.count,
