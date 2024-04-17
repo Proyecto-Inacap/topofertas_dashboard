@@ -47,7 +47,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const handleOnChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', (page + 1).toString());
-    // router.push(pathname + '?' + params.toString());
+    router.push(pathname + '?' + params.toString());
     onChange(page);
   }
 

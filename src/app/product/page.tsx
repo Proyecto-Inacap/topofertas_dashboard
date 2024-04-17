@@ -8,7 +8,6 @@ import React, { useState } from 'react'
 
 const ProductPage = () => {
   const router = useSearchParams()
-  console.log(router.get('page'))
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: Number(router.get('page'))-1 || 0,
     pageSize: 10,
