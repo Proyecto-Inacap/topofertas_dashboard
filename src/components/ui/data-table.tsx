@@ -21,6 +21,7 @@ import {
 
 import { useMemo } from 'react'
 import Pagination from '../Pagination'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './select'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -112,6 +113,10 @@ export function DataTable<TData, TValue>({
         pageCount={table.getPageCount()}
         onChange={(newPageIndex) => {
           table.setPageIndex(newPageIndex);
+        }}
+        pageSize={table.getState().pagination.pageSize}
+        setPageSize={(newPageSize) => {
+          table.setPageSize(newPageSize);
         }}
       />
     </div >
