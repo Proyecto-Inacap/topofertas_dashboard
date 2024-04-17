@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Quicksand } from "next/font/google";
 import "./globals.css";
-import MainNav from '@/components/ui/MainNav';
+import MainNav from '@/components/MainNav';
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Quicksand({
   subsets: ["latin"], weight: [
@@ -11,6 +12,7 @@ const inter = Quicksand({
 export const metadata: Metadata = {
   title: "TOPOdashboard",
   description: "TOPOdashboard - Dashboard for TOPOfertas",
+  
 };
 
 export default function RootLayout({
@@ -21,10 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <MainNav />
-        <main className='container max-w-screen-2xl p-4'>
-          {children}
-        </main>
+        <ThemeProvider attribute="class" enableSystem>
+          <MainNav />
+          <main className='container max-w-screen-2xl py-4'>
+            {children}
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
