@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { PaginationEllipsis } from './ui/pagination';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './ui/select';
-import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export interface PaginationProps {
   pageIndex: number;
@@ -22,6 +22,8 @@ const Pagination: React.FC<PaginationProps> = ({
 }) => {
   const totalPagesToShow = 5;
   const totalPages = Array.from({ length: pageCount }, (_, i) => i + 1);
+  const pathname = usePathname();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const halfTotalPagesToShow = Math.floor(totalPagesToShow / 2);
   let startPage = Math.max(0, pageIndex - halfTotalPagesToShow);
@@ -45,6 +47,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const handleOnChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', (page + 1).toString());
+    // router.push(pathname + '?' + params.toString());
     onChange(page);
   }
 
