@@ -4,6 +4,7 @@ import "./globals.css";
 import MainNav from '@/components/MainNav';
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { SWRConfig } from 'swr';
+import LoadingToast from '@/components/LoadingToast';
 
 const inter = Quicksand({
   subsets: ["latin"], weight: [
@@ -30,6 +31,7 @@ export default function RootLayout({
             {children}
           </main>
         </ThemeProvider>
+        <LoadingToast />
       </body>
     </html>
   );
