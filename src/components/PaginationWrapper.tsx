@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { Button } from './ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { PaginationEllipsis } from './ui/pagination';
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from './ui/pagination';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { limits } from '@/constants';
@@ -14,7 +14,7 @@ export interface PaginationProps {
   setPageSize: (pageSize: number) => void;
 }
 
-const Pagination: React.FC<PaginationProps> = ({
+const PaginationWrapper: React.FC<PaginationProps> = ({
   pageIndex,
   pageCount,
   onChange,
@@ -81,61 +81,59 @@ const Pagination: React.FC<PaginationProps> = ({
           </SelectGroup>
         </SelectContent>
       </Select>
-      <div className='flex'>
-        <Button
-          variant="default"
-          disabled={pageIndex === 0}
-          onClick={() => handleOnChange(Math.max(0, pageIndex - 1))}
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </Button>
-        {showFirstPage && (
-          <Fragment>
+      <Pagination>
+        <PaginationContent>
+          <PaginationPrevious variant={"default"} disabled={pageIndex === 0} onClick={() => handleOnChange(Math.max(0, pageIndex - 1))} />
+          {showFirstPage && (
+            <Fragment>
+              <PaginationItem>
 
-            <Button
-              variant="outline"
-              onClick={() => handleOnChange(Math.max(0, totalPages[0] - 1))}
-            >
-              {totalPages[0]}
-            </Button>
-            <PaginationEllipsis />
-          </Fragment>
-        )}
-        {pages.map((page) => (
-          <Button
-            key={page}
-            variant="outline"
-            size="sm"
-            onClick={() => handleOnChange(page - 1)}
-            // disabled={pageIndex !== page - 1}
-            className={pageIndex === page - 1 ? 'bg-gray-200/20' : ''}
-          >
-            {page}
-          </Button>
-        ))}
-        {showLastPage && (
-          <Fragment>
-            <PaginationEllipsis />
-            <Button
-              variant="outline"
-              onClick={() =>
-                onChange(Math.max(0, totalPages[totalPages.length - 1] - 1))
-              }
-            >
-              {totalPages[totalPages.length - 1]}
-            </Button>
-          </Fragment>
-        )}
-        <Button
-          variant="default"
-          disabled={pageIndex === pageCount - 1}
-          onClick={() => handleOnChange(Math.min(pageCount - 1, pageIndex + 1))}
-        >
-          <ChevronRight className="h-4 w-4" />
-        </Button>
-      </div>
-    </div>
+                <PaginationLink
+                  // variant="outline"
+                  onClick={() => handleOnChange(Math.max(0, totalPages[0] - 1))}
+                >
+                  {totalPages[0]}
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationEllipsis />
+            </Fragment>
+          )}
+          {pages.map((page) => (
+            <PaginationItem key={page}>
+              <PaginationLink
+                // variant="outline"
+                size="sm"
+                onClick={() => handleOnChange(page - 1)}
+                isActive={pageIndex === page - 1}
+              >
+                {page}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          {showLastPage && (
+            <Fragment>
+              <PaginationEllipsis />
+              <PaginationItem>
+                <PaginationLink
+                  // variant="outline"
+                  onClick={() =>
+                    onChange(Math.max(0, totalPages[totalPages.length - 1] - 1))
+                  }
+                >
+                  {totalPages[totalPages.length - 1]}
+                </PaginationLink>
+              </PaginationItem>
+            </Fragment>
+          )}
+          <PaginationNext
+            variant="default"
+            disabled={pageIndex === pageCount - 1}
+            onClick={() => handleOnChange(Math.min(pageCount - 1, pageIndex + 1))}
+          />
+        </PaginationContent>
+      </Pagination>
+    </div >
   );
 };
 
-export default Pagination;
+export default PaginationWrapper;

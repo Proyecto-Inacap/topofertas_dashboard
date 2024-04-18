@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/table"
 
 import { useMemo } from 'react'
-import Pagination from '../Pagination'
+import PaginationWrapper from '../PaginationWrapper'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -107,7 +107,7 @@ export function DataTable<TData, TValue>({
           )}
         </TableBody>
       </Table>
-      <Pagination
+      <PaginationWrapper
         pageIndex={table.getState().pagination.pageIndex}
         pageCount={table.getPageCount()}
         onChange={(newPageIndex) => {
