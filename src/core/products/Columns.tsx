@@ -1,5 +1,10 @@
 import { ColumnDef } from '@tanstack/react-table';
 
+export const renderPrice = (props: any) => {
+  const value = props.getValue();
+  return `$${value}`
+}
+
 export const columns: ColumnDef<Product>[] = [
   {
     header: 'ID',
@@ -24,9 +29,7 @@ export const columns: ColumnDef<Product>[] = [
   {
     header: 'Price',
     accessorKey: 'price',
-    cell(props) {
-      return <span>${ props.getValue('price') } </span>;
-    },
+    cell: renderPrice,
   },
   {
     header: 'Offer Price',
@@ -38,3 +41,4 @@ export const columns: ColumnDef<Product>[] = [
   },
 
 ];
+
