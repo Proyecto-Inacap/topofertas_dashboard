@@ -1,11 +1,8 @@
+import { checkboxColumn, renderLink, renderPrice } from '@/utils/tables/renders';
 import { ColumnDef } from '@tanstack/react-table';
 
-export const renderPrice = (props: any) => {
-  const value = props.getValue();
-  return `$${value}`
-}
-
 export const columns: ColumnDef<Product>[] = [
+  checkboxColumn,
   {
     header: 'ID',
     accessorKey: 'id',
@@ -24,21 +21,28 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     header: 'Link',
-    accessorKey: 'link',
+    id: 'link',
+    cell: ({ row }) => {
+      return renderLink(row.original.link)
+    }
   },
   {
     header: 'Price',
     accessorKey: 'price',
-    cell: renderPrice,
+    cell: ({ row }) => {
+      return renderPrice(row.original.price)
+    },
   },
   {
     header: 'Offer Price',
     accessorKey: 'offerPrice',
+    cell: ({ row }) => {
+      return renderPrice(row.original.offerPrice)
+    },
   },
   {
     header: 'Enabled',
     accessorKey: 'enabled',
   },
-
 ];
 
