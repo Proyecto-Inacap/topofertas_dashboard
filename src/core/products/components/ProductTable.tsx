@@ -1,10 +1,10 @@
 'use client'
 import { DataTable } from '@/components/ui/data-table'
-import { columns } from '@/core/products/Columns'
 import { useProducts } from '@/core/products/hooks/useProducts'
 import { useLoadingState } from '@/store/loadingState'
 import { PaginationState } from '@tanstack/react-table'
 import React, { useEffect, useState } from 'react'
+import { columns } from '../Columns'
 
 interface Props {
   limit: number
@@ -17,9 +17,8 @@ const ProductTable = ({ limit, page }: Props) => {
     pageIndex: page - 1,
     pageSize: limit,
   });
-  
-  const { products, count, isLoading } = useProducts({ limit, page })
 
+  const { products, count, isLoading } = useProducts({ limit, page: pageIndex })
   useEffect(() => {
     setLoadingState(isLoading)
   }, [isLoading, setLoadingState])

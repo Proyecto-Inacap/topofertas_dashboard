@@ -53,13 +53,12 @@ const PaginationWrapper: React.FC<PaginationProps> = ({
   }
 
   const handleValueChange = (pageSize: string) => {
-    // let limit = Number(pageSize);
-    // const ranges = [10, 25, 50];
-    // if (!ranges.includes(limit)) limit = 10;
     const params = new URLSearchParams(searchParams.toString());
     params.set('limit', pageSize);
+    params.set('page', '1');
     router.push(pathname + '?' + params.toString());
     setPageSize(Number(pageSize));
+    onChange(0);
   }
 
   return (
@@ -88,7 +87,6 @@ const PaginationWrapper: React.FC<PaginationProps> = ({
         {showFirstPage && (
           <Fragment>
             <PaginationItem>
-
               <PaginationLink
                 // variant="outline"
                 onClick={() => handleOnChange(Math.max(0, totalPages[0] - 1))}
@@ -118,7 +116,7 @@ const PaginationWrapper: React.FC<PaginationProps> = ({
               <PaginationLink
                 // variant="outline"
                 onClick={() =>
-                  onChange(Math.max(0, totalPages[totalPages.length - 1] - 1))
+                  handleOnChange(Math.max(0, totalPages[totalPages.length - 1] - 1))
                 }
               >
                 {totalPages[totalPages.length - 1]}
