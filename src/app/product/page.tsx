@@ -9,7 +9,7 @@ import React, { useState } from 'react'
 const ProductPage = () => {
   const router = useSearchParams()
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
-    pageIndex: Number(router.get('page'))-1 || 0,
+    pageIndex: Number((router.get('page')) || 1) - 1,
     pageSize: 10,
   });
   const { products, count, isLoading } = useProducts({ limit: pageSize, page: pageIndex + 1 })
