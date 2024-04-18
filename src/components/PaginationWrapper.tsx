@@ -63,76 +63,76 @@ const PaginationWrapper: React.FC<PaginationProps> = ({
   }
 
   return (
-    <div className='flex justify-between p-4'>
-      <Select
-        value={pageSize.toString()}
-        onValueChange={handleValueChange}
-      >
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder="Select a fruit" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            {limits.map((pageSize) => (
-              <SelectItem key={pageSize} value={pageSize.toString()}>
-                Mostrar {pageSize}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-      <Pagination>
-        <PaginationContent>
-          <PaginationPrevious variant={"default"} disabled={pageIndex === 0} onClick={() => handleOnChange(Math.max(0, pageIndex - 1))} />
-          {showFirstPage && (
-            <Fragment>
-              <PaginationItem>
+    <Pagination className='justify-between p-4'>
+      <PaginationContent>
+        <Select
+          value={pageSize.toString()}
+          onValueChange={handleValueChange}
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select a fruit" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              {limits.map((pageSize) => (
+                <SelectItem key={pageSize} value={pageSize.toString()}>
+                  Mostrar {pageSize}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </PaginationContent>
+      <PaginationContent>
+        <PaginationPrevious variant={"default"} disabled={pageIndex === 0} onClick={() => handleOnChange(Math.max(0, pageIndex - 1))} />
+        {showFirstPage && (
+          <Fragment>
+            <PaginationItem>
 
-                <PaginationLink
-                  // variant="outline"
-                  onClick={() => handleOnChange(Math.max(0, totalPages[0] - 1))}
-                >
-                  {totalPages[0]}
-                </PaginationLink>
-              </PaginationItem>
-              <PaginationEllipsis />
-            </Fragment>
-          )}
-          {pages.map((page) => (
-            <PaginationItem key={page}>
               <PaginationLink
                 // variant="outline"
-                size="sm"
-                onClick={() => handleOnChange(page - 1)}
-                isActive={pageIndex === page - 1}
+                onClick={() => handleOnChange(Math.max(0, totalPages[0] - 1))}
               >
-                {page}
+                {totalPages[0]}
               </PaginationLink>
             </PaginationItem>
-          ))}
-          {showLastPage && (
-            <Fragment>
-              <PaginationEllipsis />
-              <PaginationItem>
-                <PaginationLink
-                  // variant="outline"
-                  onClick={() =>
-                    onChange(Math.max(0, totalPages[totalPages.length - 1] - 1))
-                  }
-                >
-                  {totalPages[totalPages.length - 1]}
-                </PaginationLink>
-              </PaginationItem>
-            </Fragment>
-          )}
-          <PaginationNext
-            variant="default"
-            disabled={pageIndex === pageCount - 1}
-            onClick={() => handleOnChange(Math.min(pageCount - 1, pageIndex + 1))}
-          />
-        </PaginationContent>
-      </Pagination>
-    </div >
+            <PaginationEllipsis />
+          </Fragment>
+        )}
+        {pages.map((page) => (
+          <PaginationItem key={page}>
+            <PaginationLink
+              // variant="outline"
+              size="sm"
+              onClick={() => handleOnChange(page - 1)}
+              isActive={pageIndex === page - 1}
+            >
+              {page}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
+        {showLastPage && (
+          <Fragment>
+            <PaginationEllipsis />
+            <PaginationItem>
+              <PaginationLink
+                // variant="outline"
+                onClick={() =>
+                  onChange(Math.max(0, totalPages[totalPages.length - 1] - 1))
+                }
+              >
+                {totalPages[totalPages.length - 1]}
+              </PaginationLink>
+            </PaginationItem>
+          </Fragment>
+        )}
+        <PaginationNext
+          variant="default"
+          disabled={pageIndex === pageCount - 1}
+          onClick={() => handleOnChange(Math.min(pageCount - 1, pageIndex + 1))}
+        />
+      </PaginationContent>
+    </Pagination>
   );
 };
 
