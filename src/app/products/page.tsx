@@ -12,7 +12,7 @@ interface Props {
 
 const ProductsPage = ({ searchParams: { limit, page } }: Props) => {
   const limitValue = Number(limit) || 10
-  const pageValue = Number((page) || 0) - 1
+  const pageValue = Number((page) || 0) 
 
   if (!limits.includes(limitValue)) {
     redirect(`/products?limit=10${page ? `&page=${Number(page)}` : ''}`)

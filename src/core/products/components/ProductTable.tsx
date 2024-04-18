@@ -14,10 +14,11 @@ interface Props {
 const ProductTable = ({ limit, page }: Props) => {
   const { setLoadingState } = useLoadingState()
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
-    pageIndex: page,
+    pageIndex: page - 1,
     pageSize: limit,
   });
-  const { products, count, isLoading } = useProducts({ limit: pageSize, page: pageIndex })
+  
+  const { products, count, isLoading } = useProducts({ limit, page })
 
   useEffect(() => {
     setLoadingState(isLoading)
