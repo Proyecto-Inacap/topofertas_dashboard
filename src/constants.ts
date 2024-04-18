@@ -1,0 +1,1 @@
+export const limits = [10, 25, 50]

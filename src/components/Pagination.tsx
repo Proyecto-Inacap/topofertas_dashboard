@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { PaginationEllipsis } from './ui/pagination';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { limits } from '@/constants';
 
 export interface PaginationProps {
   pageIndex: number;
@@ -51,21 +52,28 @@ const Pagination: React.FC<PaginationProps> = ({
     onChange(page);
   }
 
+  const handleValueChange = (pageSize: string) => {
+    // let limit = Number(pageSize);
+    // const ranges = [10, 25, 50];
+    // if (!ranges.includes(limit)) limit = 10;
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('limit', pageSize);
+    router.push(pathname + '?' + params.toString());
+    setPageSize(Number(pageSize));
+  }
+
   return (
     <div className='flex justify-between p-4'>
       <Select
         value={pageSize.toString()}
-        onValueChange={(e) => {
-          const pageSize = parseInt(e, 10);
-          setPageSize(pageSize);
-        }}
+        onValueChange={handleValueChange}
       >
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Select a fruit" />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            {[10, 25, 50].map((pageSize) => (
+            {limits.map((pageSize) => (
               <SelectItem key={pageSize} value={pageSize.toString()}>
                 Mostrar {pageSize}
               </SelectItem>
