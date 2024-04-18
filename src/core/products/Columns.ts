@@ -9,5 +9,29 @@ export const columns: ColumnDef<Product>[]  = [
     header: 'Name',
     accessorKey: 'name',
   },
+  {
+    stock: 'Stock',
+    accessorKey: 'stock',
+  },
+  {
+    header: 'Description',
+    accessorKey: 'description',
+  },
+  {
+    header: 'Link',
+    accessorKey: 'link',
+  },
+  {
+    header: 'Price',
+    accessorKey: 'price',
+  },
+  {
+    header: 'Offer Price',
+    accessorKey: 'offerPrice',
+  },
+  {
+    header: 'Enabled',
+    accessorKey: 'enabled',
+  },
 
 ];
