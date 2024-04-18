@@ -5,6 +5,6 @@ export const navLinks = [
   },
   {
     title: 'Productos',
-    href: '/product',
+    href: '/products',
   },
 ]
