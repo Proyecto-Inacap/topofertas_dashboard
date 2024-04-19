@@ -6,11 +6,11 @@ import { getAnalitycs } from "../api/getAnalytics";
 const HomeCharts = async () => {
   const analytics = await getAnalitycs();
   return (
-    <div className="flex space-x-4 mt-4">
-      <Card className="w-1/2">
+    <div className="grid grid-auto-fit-[30rem] gap-4 mt-4 flex-wrap">
+      <Card>
         <ChartBar data={analytics} />
       </Card>
-      <Card className="w-1/2">
+      <Card>
         <ChartBar data={analytics} />
       </Card>
     </div>

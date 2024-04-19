@@ -10,6 +10,7 @@ import LoadingToast from "@/components/LoadingToast";
 import Providers from "@/providers/Providers";
 import { cn } from "@/utils/cn";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,6 +35,7 @@ export default function RootLayout({
            {children}
           </Providers>
         <LoadingToast />
+        <Toaster />
       </body>
     </html>
   );

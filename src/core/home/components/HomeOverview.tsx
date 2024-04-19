@@ -52,11 +52,11 @@ const cardExamples = [
 const HomeOverview = async () => {
   return (
     <div>
-      <div className="flex space-x-4 mt-4">
+      <div className="grid grid-auto-fit-[15rem] gap-4 mt-4">
         {cardExamples.map((card, index) => (
           <Card
             key={index}
-            className="w-1/4 px-2 hover:border-primary/30 transition-all"
+            className=" px-2 hover:border-primary/30 transition-all"
           >
             <CardHeader className="flex flex-row justify-between items-center">
               <h4 className="font-semibold">{card.title}</h4>
