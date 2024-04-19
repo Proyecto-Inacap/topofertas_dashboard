@@ -5,6 +5,7 @@ import qs from 'query-string'
 interface Props {
   limit: number
   page: number
+  searchValue: string
 }
 
 interface Response {
@@ -13,9 +14,9 @@ interface Response {
 
 }
 
-export const useProducts = ({ limit, page }: Props) => {
+export const useProducts = ({ limit, page, searchValue }: Props) => {
 
-  const query = qs.stringify({ limit, page })
+  const query = qs.stringify({ limit, page, searchValue })
 
   const { data, isLoading, mutate } = useSWR<Response>(`/products?${query}`, fetcher, {
     keepPreviousData: true
