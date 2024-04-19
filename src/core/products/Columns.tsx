@@ -1,5 +1,5 @@
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import { checkboxColumn, renderLink, renderPrice } from '@/utils/tables/renders';
+import { checkboxColumn, renderLink, renderPrice, TooltipRender } from '@/utils/tables/renders';
 import { ColumnDef } from '@tanstack/react-table';
 import { Badge } from "@/components/ui/badge"
 
@@ -12,13 +12,17 @@ export const columns: ColumnDef<Product>[] = [
   {
     header: 'Nombre',
     accessorKey: 'name',
+    cell: ({ row }) => {
+      const name = row.original.name;
+      return (
+        <TooltipRender value={name} />
+      )
+    }
   },
   {
     header: 'Stock',
     accessorKey: 'stock',
-    cell: ({ row }) => {
-      return row.original.stock + ' ud.';
-    }
+
   },
   {
     header: 'Descripción',
@@ -26,17 +30,8 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ row }) => {
       const description = row.original.description;
       return (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <p className='max-w-[10rem] line-clamp-1'>
-                {description}</p>
-            </TooltipTrigger>
-            <TooltipContent className='max-w-sm'>
-              <p>{description}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+        <TooltipRender value={description} />
+
       )
     }
   },
@@ -44,7 +39,9 @@ export const columns: ColumnDef<Product>[] = [
     header: 'Link',
     id: 'link',
     cell: ({ row }) => {
-      return renderLink(row.original.link)
+      return (
+        renderLink(row.original.link + 'akjsdaskjdkajsdjkasdkajsdkasdkasjdaksjdkasdjabb')
+      )
     }
   },
   {
@@ -68,7 +65,7 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ row }) => {
       const enabled = row.original.enabled;
       return (
-        <Badge variant={enabled  ? 'default' : 'destructive'} >
+        <Badge variant={enabled ? 'default' : 'destructive'} >
           {enabled ? 'Activo' : 'Inactivo'}
         </Badge>
       )
