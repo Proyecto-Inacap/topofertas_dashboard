@@ -9,8 +9,15 @@ export const renderPrice = (value: number) => {
 export const renderLink = (value: string) => {
   return <Link href={value} className='hover:bg-primary/10 p-2 rounded-lg'>{value}</Link>
 }
+export interface CheckboxColumn<T> {
+  id: string;
+  header: ColumnDef<T, any>['header'];
+  cell: ColumnDef<T, any>['cell'];
+  enableSorting: boolean;
+  enableHiding: boolean;
+}
 
-export const checkboxColumn: ColumnDef<T> = {
+export const checkboxColumn : CheckboxColumn<any> = {
   id: "select",
   header: ({ table }) => (
     <Checkbox
