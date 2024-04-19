@@ -1,6 +1,6 @@
 import MainNav from "@/components/MainNav";
 
-import "./globals.css";
+import "@/app/globals.css";
 import Footer from "@/components/Footer";
 import Container from "@/components/layouts/Container";
 import { Fragment } from "react";
