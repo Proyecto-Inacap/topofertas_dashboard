@@ -1,4 +1,6 @@
-type CommentLikes = {
+import { User } from '../users/types'
+
+export type CommentLikes = {
   id: string
   //Relations
   comment: Comment
