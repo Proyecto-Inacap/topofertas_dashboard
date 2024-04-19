@@ -9,6 +9,7 @@ import Container from "@/components/layouts/Container";
 import LoadingToast from "@/components/LoadingToast";
 import Providers from "@/providers/Providers";
 import { cn } from "@/utils/cn";
+import { SessionProvider } from "next-auth/react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,15 +30,15 @@ export default function RootLayout({
       <body
         className={cn(inter.className, "min-h-screen flex flex-col")}
       >
-        <Providers>
-          <div className="flex-1">
-            <MainNav />
-            <Container className={"py-4 w-[90%]"}>
-              {children}
-            </Container>
-          </div>
-          <Footer />
-        </Providers>
+          <Providers>
+            <div className="flex-1">
+              <MainNav />
+              <Container className={"py-4 w-[90%]"}>
+                {children}
+              </Container>
+            </div>
+            <Footer />
+          </Providers>
         <LoadingToast />
       </body>
     </html>
