@@ -12,11 +12,11 @@ type Product = {
   categoryId: string
   store: Store
   storeId: string
-  // favorites: Favorite[]
-  // characteristics: Characteristic[]
-  // ratings: Rating[]
+  favorites: Favorite[]
+  characteristics: Characteristic[]
+  ratings: Rating[]
   comments: Comment[]
-  // historicalPrices: HistoricalPrice[]
+  historicalPrices: HistoricalPrice[]
   //Default timestamps
   createdAt: Date
   updatedAt: Date
