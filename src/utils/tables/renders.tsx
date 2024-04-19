@@ -59,7 +59,7 @@ export const TooltipRender = ({ value }: { value: string }) => {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <p className="max-w-[10rem] line-clamp-1">{value}</p>
+          <p className="max-w-[8rem] overflow-hidden text-ellipsis">{value}</p>
         </TooltipTrigger>
         <TooltipContent className="max-w-sm">
           <p>{value}</p>
