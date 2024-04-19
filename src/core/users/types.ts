@@ -6,6 +6,7 @@ export type User = {
   gender: string
   email: string
   password: string
+  status: boolean
   //Relations
   userRole: UserRole
   userRoleId: string

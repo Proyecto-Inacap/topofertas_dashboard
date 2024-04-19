@@ -22,11 +22,11 @@ const ReportTable = ({ limit, page }: Props) => {
 
   const { reports, count, isLoading, mutate } = useReports({ limit, page: pageIndex, searchValue })
 
-  console.log(reports)
-
   useEffect(() => {
     setLoadingState(isLoading)
   }, [isLoading, setLoadingState])
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)
     mutate()
@@ -34,7 +34,6 @@ const ReportTable = ({ limit, page }: Props) => {
 
   return (
     <div className='flex flex-col gap-5'>
-      {/* <Label>Buscar</Label> */}
       <h1 className='text-2xl font-bold'>Reportes</h1>
       <Input placeholder="Buscar" className='max-w-sm' value={searchValue} onChange={handleChange} />
       <DataTable columns={columns} data={reports || []} pageIndex={pageIndex} pageSize={pageSize} setPagination={setPagination} count={count || 0} />
