@@ -1,5 +1,5 @@
 import { limits } from "@/constants";
-import ProductTable from "@/core/products/components/ProductTable";
+import ReportTable from "@/core/reports/components/ReportTable";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -10,7 +10,7 @@ interface Props {
   };
 }
 
-const ProductsPage = ({ searchParams: { limit, page } }: Props) => {
+const ReportPage = ({ searchParams: { limit, page } }: Props) => {
   const limitValue = Number(limit) || 10;
   const pageValue = Number(page) || 1;
 
@@ -22,7 +22,7 @@ const ProductsPage = ({ searchParams: { limit, page } }: Props) => {
     redirect(`/products?${newParams.toString()}`);
   }
 
-  return <ProductTable limit={limitValue} page={pageValue} />;
+  return <ReportTable limit={limitValue} page={pageValue} />;
 };
 
-export default ProductsPage;
+export default ReportPage;
