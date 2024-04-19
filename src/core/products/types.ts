@@ -6,11 +6,11 @@ type Product = {
   link: string
   price: number
   offerPrice: number
-  enabled: Boolean
+  enabled: boolean
   //Relations
-  // category: Category
+  category: Category
   categoryId: string
-  // store: Store
+  store: Store
   storeId: string
   // favorites: Favorite[]
   // characteristics: Characteristic[]
