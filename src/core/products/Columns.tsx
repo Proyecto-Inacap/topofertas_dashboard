@@ -3,10 +3,10 @@ import { ColumnDef } from '@tanstack/react-table';
 
 export const columns: ColumnDef<Product>[] = [
   checkboxColumn,
-  {
-    header: 'ID',
-    accessorKey: 'id',
-  },
+  // {
+  //   header: 'Nombre',
+  //   accessorKey: 'id',
+  // },
   {
     header: 'Name',
     accessorKey: 'name',

@@ -5,6 +5,8 @@ import { useLoadingState } from '@/store/loadingState'
 import { PaginationState } from '@tanstack/react-table'
 import React, { useEffect, useState } from 'react'
 import { columns } from '../Columns'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 
 interface Props {
   limit: number
@@ -17,14 +19,24 @@ const ProductTable = ({ limit, page }: Props) => {
     pageIndex: page - 1,
     pageSize: limit,
   });
+  const [searchValue, setSearchValue] = useState('')
 
-  const { products, count, isLoading } = useProducts({ limit, page: pageIndex })
+  const { products, count, isLoading, mutate } = useProducts({ limit, page: pageIndex, searchValue })
+
   useEffect(() => {
     setLoadingState(isLoading)
   }, [isLoading, setLoadingState])
+  console.log(count)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value)
+    mutate()
+  }
 
   return (
-    <div>
+    <div className='flex flex-col gap-5'>
+      {/* <Label>Buscar</Label> */}
+      <h1 className='text-2xl font-bold'>Productos</h1>
+      <Input placeholder="Buscar" className='max-w-sm' value={searchValue} onChange={handleChange} />
       <DataTable columns={columns} data={products || []} pageIndex={pageIndex} pageSize={pageSize} setPagination={setPagination} count={count || 0} />
     </div>
   )
