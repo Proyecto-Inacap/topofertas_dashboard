@@ -1,4 +1,6 @@
-type User = {
+import { UserRole } from "../userRoles/types"
+
+export type User = {
   id: string
   username: string
   gender: string
@@ -17,4 +19,21 @@ type User = {
   updatedAt: Date
 }
 
+
+export type UserNextAuth = {
+  id: string
+  username: string
+  gender: string
+  password: string
+  //Relations
+  userRole: UserRole
+  // favorites: Favorite[]
+  // ratings: Rating[]
+  reports: Report[]
+  comments: Comment[]
+  // commentLikes: CommentLike[]
+  //Default timestamps
+  createdAt: Date
+  updatedAt: Date
+}
 

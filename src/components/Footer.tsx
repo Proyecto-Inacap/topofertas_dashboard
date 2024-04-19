@@ -1,7 +1,9 @@
 import React from "react";
 import Container from "./layouts/Container";
+import { getServerSession } from "next-auth";
 
-const Footer = () => {
+const Footer = async () => {
+  const session = await getServerSession();
   return (
     <footer className="border-t border-border/40 h-12 flex items-center">
       <Container>

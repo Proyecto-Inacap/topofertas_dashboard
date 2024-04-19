@@ -26,7 +26,6 @@ const ProductTable = ({ limit, page }: Props) => {
   useEffect(() => {
     setLoadingState(isLoading)
   }, [isLoading, setLoadingState])
-  console.log(count)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value)
     mutate()
