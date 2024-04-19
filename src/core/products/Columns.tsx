@@ -18,26 +18,30 @@ export const columns: ColumnDef<Product>[] = [
     },
   },
   {
-    header: "Stock",
-    accessorKey: "stock",
-  },
-  {
-    header: "Descripción",
-    accessorKey: "description",
+    header: "Tienda",
     cell: ({ row }) => {
-      const description = row.original.description;
-      return <TooltipRender value={description} />;
+      const store = row.original.store;
+      return <TooltipRender value={store.name} />;
     },
   },
   {
-    header: "Link",
-    id: "link",
+    header: "Categoría",
+    accessorKey: "category",
     cell: ({ row }) => {
-      return renderLink(
-        row.original.link + "akjsdaskjdkajsdjkasdkajsdkasdkasjdaksjdkasdjabb"
-      );
+      const category = row.original.category;
+      return <TooltipRender value={category.name} />;
     },
   },
+
+  // {
+  //   header: "Descripción",
+  //   accessorKey: "description",
+  //   cell: ({ row }) => {
+  //     const description = row.original.description;
+  //     return <TooltipRender value={description} />;
+  //   },
+  // },
+
   {
     header: "Precio",
     accessorKey: "price",
@@ -51,6 +55,19 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ row }) => {
       const offerPrice = row.original.offerPrice;
       return offerPrice ? renderPrice(offerPrice) : "Sin oferta";
+    },
+  },
+  {
+    header: "Stock",
+    accessorKey: "stock",
+  },
+  {
+    header: "Link de tienda",
+    id: "link",
+    cell: ({ row }) => {
+      return renderLink(
+        row.original.link + "akjsdaskjdkajsdjkasdkajsdkasdkasjdaksjdkasdjabb"
+      );
     },
   },
   {
