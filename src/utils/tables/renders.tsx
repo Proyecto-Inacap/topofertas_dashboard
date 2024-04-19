@@ -1,4 +1,5 @@
 import { Checkbox } from '@/components/ui/checkbox';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { ColumnDef } from '@tanstack/react-table';
 import Link from 'next/link';
 
@@ -7,7 +8,13 @@ export const renderPrice = (value: number) => {
 }
 
 export const renderLink = (value: string) => {
-  return <Link href={value} className='hover:bg-primary/10 p-2 rounded-lg'>{value}</Link>
+  return (
+    <div className='max-w-[10rem] overflow-hidden text-ellipsis hover:bg-primary/10 p-1 px-2 rounded-lg'>
+      <Link href={value}>
+        {value}
+      </Link>
+    </div>
+  )
 }
 export interface CheckboxColumn<T> {
   id: string;
@@ -17,7 +24,7 @@ export interface CheckboxColumn<T> {
   enableHiding: boolean;
 }
 
-export const checkboxColumn : CheckboxColumn<any> = {
+export const checkboxColumn: CheckboxColumn<any> = {
   id: "select",
   header: ({ table }) => (
     <Checkbox
@@ -39,3 +46,19 @@ export const checkboxColumn : CheckboxColumn<any> = {
   enableSorting: false,
   enableHiding: false,
 };
+
+export const TooltipRender = ({ value }: { value: string }) => {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <p className='max-w-[10rem] line-clamp-1'>
+            {value}</p>
+        </TooltipTrigger>
+        <TooltipContent className='max-w-sm'>
+          <p>{value}</p>
+        </TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  )
+}
