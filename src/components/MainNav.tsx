@@ -1,16 +1,17 @@
-'use client'
+"use client";
 import { cn } from "@/utils/cn";
-import Link from "next/link";
 import { navLinks } from "@/utils/nav";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Container from "./layouts/Container";
 import ThemeSwitch from "./ThemeSwitch";
-import { usePathname } from 'next/navigation';
 
 const MainNav = () => {
   const pathname = usePathname();
-  
+
   return (
     <header className="p-4 sticky top-0 border-b border-border/40 bg-background z-[1]">
-      <div className="container max-w-screen-2xl flex justify-between">
+      <Container className="flex justify-between">
         <div className="flex gap-6 md:gap-10">
           <Link href="/" className="flex items-center space-x-2">
             {/* <Icons.logo className="h-6 w-6" /> */}
@@ -28,7 +29,8 @@ const MainNav = () => {
                       className={cn(
                         "flex items-center text-sm font-medium text-muted-foreground/80 hover:text-foreground/80 transition-colors duration-200",
                         {
-                          "text-foreground/80": pathname === item.href,
+                          "text-foreground/80":
+                            pathname === item.href,
                         }
                       )}
                     >
@@ -40,7 +42,7 @@ const MainNav = () => {
           ) : null}
         </div>
         <ThemeSwitch />
-      </div>
+      </Container>
     </header>
   );
 };
