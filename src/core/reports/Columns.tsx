@@ -15,23 +15,26 @@ import { EllipsisIcon, InfoIcon } from "lucide-react";
 import axios from "axios";
 import { API } from "@/config";
 
-const handleResolve = async (id: string) => {
-  const response = await axios.patch(
-    `/reports/${id}`,
-    {
-      status: false,
-    },
-    {
-      baseURL: API.TOPOFERTAS,
-    }
-  );
-  console.log(response);
-};
+interface Props {
+  mutate: () => void;
+}
 
+export const useColumns = ({ mutate }: Props) => {
+  const handleResolve = async (id: string) => {
+    const response = await axios.put(
+      `/reports/${id}`,
+      {
+        status: false,
+      },
+      {
+        baseURL: API.TOPOFERTAS,
+      }
+    );
+    console.log(response);
+    mutate();
+  };
 
-export const useColumns = () => {
-
-  return [
+  const columns: ColumnDef<Report>[] = [
     checkboxColumn,
     {
       header: "Usuario",
@@ -148,4 +151,5 @@ export const useColumns = () => {
       },
     },
   ];
+  return columns;
 };
