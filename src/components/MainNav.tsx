@@ -1,9 +1,13 @@
+'use client'
 import { cn } from "@/utils/cn";
 import Link from "next/link";
 import { navLinks } from "@/utils/nav";
 import ThemeSwitch from "./ThemeSwitch";
+import { usePathname } from 'next/navigation';
 
 const MainNav = () => {
+  const pathname = usePathname();
+  
   return (
     <header className="p-4 sticky top-0 border-b border-border/40 bg-background z-[1]">
       <div className="container max-w-screen-2xl flex justify-between">
@@ -22,8 +26,10 @@ const MainNav = () => {
                       key={index}
                       href={item.href}
                       className={cn(
-                        "flex items-center text-sm font-medium text-muted-foreground/80 hover:text-foreground/80 transition-colors duration-200"
-                        // item.disabled && "cursor-not-allowed opacity-80"
+                        "flex items-center text-sm font-medium text-muted-foreground/80 hover:text-foreground/80 transition-colors duration-200",
+                        {
+                          "text-foreground/80": pathname === item.href,
+                        }
                       )}
                     >
                       {item.title}
