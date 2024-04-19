@@ -1,5 +1,4 @@
 import MainNav from "@/components/MainNav";
-
 import "@/app/globals.css";
 import Footer from "@/components/Footer";
 import Container from "@/components/layouts/Container";

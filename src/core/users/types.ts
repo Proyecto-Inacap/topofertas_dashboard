@@ -9,8 +9,8 @@ export type User = {
   //Relations
   userRole: UserRole
   userRoleId: string
-  // favorites: Favorite[]
-  // ratings: Rating[]
+  favorites: Favorite[]
+  ratings: Rating[]
   reports: Report[]
   comments: Comment[]
   // commentLikes: CommentLike[]

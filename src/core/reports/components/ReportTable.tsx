@@ -1,18 +1,18 @@
 'use client'
 import { DataTable } from '@/components/ui/data-table'
-import { useProducts } from '@/core/products/hooks/useProducts'
 import { useLoadingState } from '@/store/loadingState'
 import { PaginationState } from '@tanstack/react-table'
 import React, { useEffect, useState } from 'react'
 import { columns } from '../Columns'
 import { Input } from '@/components/ui/input'
+import { useReports } from '../hooks/useReports'
 
 interface Props {
   limit: number
   page: number
 }
 
-const ProductTable = ({ limit, page }: Props) => {
+const ReportTable = ({ limit, page }: Props) => {
   const { setLoadingState } = useLoadingState()
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: page - 1,
@@ -20,7 +20,9 @@ const ProductTable = ({ limit, page }: Props) => {
   });
   const [searchValue, setSearchValue] = useState('')
 
-  const { products, count, isLoading, mutate } = useProducts({ limit, page: pageIndex, searchValue })
+  const { reports, count, isLoading, mutate } = useReports({ limit, page: pageIndex, searchValue })
+
+  console.log(reports)
 
   useEffect(() => {
     setLoadingState(isLoading)
@@ -33,11 +35,11 @@ const ProductTable = ({ limit, page }: Props) => {
   return (
     <div className='flex flex-col gap-5'>
       {/* <Label>Buscar</Label> */}
-      <h1 className='text-2xl font-bold'>Productos</h1>
+      <h1 className='text-2xl font-bold'>Reportes</h1>
       <Input placeholder="Buscar" className='max-w-sm' value={searchValue} onChange={handleChange} />
-      <DataTable columns={columns} data={products || []} pageIndex={pageIndex} pageSize={pageSize} setPagination={setPagination} count={count || 0} />
+      <DataTable columns={columns} data={reports || []} pageIndex={pageIndex} pageSize={pageSize} setPagination={setPagination} count={count || 0} />
     </div>
   )
 }
 
-export default ProductTable
+export default ReportTable
