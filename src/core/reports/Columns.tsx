@@ -42,7 +42,7 @@ export const columns: ColumnDef<Report>[] = [
   {
     header: "Usuario",
     cell: ({ row }) => {
-      const value = row.original.user.email;
+      const value = row.original.user.username;
       return <TooltipRender value={value} />;
     },
   },
