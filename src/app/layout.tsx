@@ -31,13 +31,7 @@ export default function RootLayout({
         className={cn(inter.className, "min-h-screen flex flex-col")}
       >
           <Providers>
-            <div className="flex-1">
-              <MainNav />
-              <Container className={"py-4 w-[90%]"}>
-                {children}
-              </Container>
-            </div>
-            <Footer />
+           {children}
           </Providers>
         <LoadingToast />
       </body>

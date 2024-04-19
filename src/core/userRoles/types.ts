@@ -1,4 +1,6 @@
-type UserRole = {
+import { User } from "../users/types"
+
+export type UserRole = {
   id: string
   label: string
   type: number

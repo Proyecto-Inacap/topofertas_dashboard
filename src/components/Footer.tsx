@@ -4,7 +4,6 @@ import { getServerSession } from "next-auth";
 
 const Footer = async () => {
   const session = await getServerSession();
-  console.log(session);
   return (
     <footer className="border-t border-border/40 h-12 flex items-center">
       <Container>

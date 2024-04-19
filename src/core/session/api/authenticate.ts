@@ -7,7 +7,7 @@ export const authenticate = async (email: string, password: string) => {
     })
     if (res.status === 200) {
         return { 
-            user: res.data,
+            user: res.data as User,
         }
     } else {
         return null;
