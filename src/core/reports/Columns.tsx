@@ -14,12 +14,39 @@ interface Props {
 }
 
 export const useColumns = ({ mutate }: Props) => {
+  const handleBanUser = async (id: string) => {
+    try {
+      const response = await axios.delete(`/users/ban/${id}`, {
+        baseURL: API.TOPOFERTAS,
+      });
+      console.log(response);
+      if (response.status !== 200)
+        throw new Error("Error al banear al usuario");
+      mutate();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleBanComment = async (id: string) => {
+    try {
+      const response = await axios.delete(`/comments/ban/${id}`, {
+        baseURL: API.TOPOFERTAS,
+      });
+      if (response.status !== 200)
+        throw new Error("Error al eliminar el comentario");
+      mutate();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleResolve = async (id: string) => {
     try {
       const response = await axios.patch(
         `/reports/${id}`,
         {
-          status: true,
+          status: false,
         },
         {
           baseURL: API.TOPOFERTAS,
@@ -105,8 +132,8 @@ export const useColumns = ({ mutate }: Props) => {
       cell: ({ row }) => {
         const status = row.original.status;
         return (
-          <Badge variant={status ? "default" : "destructive"}>
-            {status ? "Resuelto" : "Pendiente"}
+          <Badge variant={status ? "destructive" : "default"}>
+            {status ? "Pendiente" : "Resuelto"}
           </Badge>
         );
       },
@@ -116,11 +143,14 @@ export const useColumns = ({ mutate }: Props) => {
       enableHiding: false,
       cell: ({ row }) => {
         const report = row.original;
+        const userId = report.comment.userId;
         const user = report.comment.user;
+        const commentId = report.commentId;
         const comment = report.comment;
+
         return (
-          <DropdownMenu >
-            <DropdownMenuTrigger asChild disabled={report.status}>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild disabled={!report.status}>
               <Button variant="outline" className="h-8 w-8 p-0">
                 <span className="sr-only">Open menu</span>
                 <EllipsisIcon className="h-4 w-6" />
@@ -130,16 +160,16 @@ export const useColumns = ({ mutate }: Props) => {
               <DropdownMenuLabel>Acciones</DropdownMenuLabel>
               <DropdownMenuSeparator />
               {user.status && (
-                <DropdownMenuItem
-                  onClick={() => navigator.clipboard.writeText(report.id)}
-                >
+                <DropdownMenuItem onClick={() => handleBanUser(userId)}>
                   Banear usuario
                 </DropdownMenuItem>
               )}
               {comment.status && (
-                <DropdownMenuItem>Eliminar Comentario</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleBanComment(commentId)}>
+                  Eliminar Comentario
+                </DropdownMenuItem>
               )}
-              {!report.status && (
+              {report.status && (
                 <DropdownMenuItem onClick={() => handleResolve(report.id)}>
                   Resolver
                 </DropdownMenuItem>
