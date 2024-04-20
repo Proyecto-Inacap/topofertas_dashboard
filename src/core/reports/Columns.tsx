@@ -8,14 +8,15 @@ import axios from "axios";
 import { InfoIcon } from "lucide-react";
 
 import { Report } from "./type";
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from "@/components/ui/use-toast";
 
 interface Props {
   mutate: () => void;
 }
 
 export const useColumns = ({ mutate }: Props) => {
-  const { toast } = useToast();
+  const { toast, toasts } = useToast();
+  const isLoading = toasts.some((t) => t.toastType === "loading");
   const handleBanUser = async (id: string) => {
     const loading = toast({
       toastType: "loading",
@@ -190,7 +191,7 @@ export const useColumns = ({ mutate }: Props) => {
         const comment = report.comment;
 
         return (
-          <ActionsDropDown disabled={!report.status}>
+          <ActionsDropDown disabled={!report.status || isLoading}>
             {user.status && (
               <DropdownMenuItem onClick={() => handleBanUser(userId)}>
                 Banear usuario

@@ -18,6 +18,7 @@ type ToasterToast = ToastProps & {
   title?: React.ReactNode;
   description?: React.ReactNode;
   action?: ToastActionElement;
+  toastType: "default" | "success" | "error" | "loading";
 };
 
 const actionTypes = {
@@ -169,6 +170,7 @@ function toast({
   dispatch({
     type: "ADD_TOAST",
     toast: {
+      toastType: toastType ||'default',
       ...defaultAttributes,
       ...props,
       id,

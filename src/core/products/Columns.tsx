@@ -17,8 +17,8 @@ interface Props {
 }
 
 export const useColumns = ({ mutate }: Props) => {
-  const { toast } = useToast();
-
+  const { toast, toasts } = useToast();
+  const isLoading = toasts.some((t) => t.toastType === "loading");
   const handleChange = async (id: string, enabled: boolean) => {
     const loading = toast({
       toastType: "loading",
@@ -134,7 +134,7 @@ export const useColumns = ({ mutate }: Props) => {
         const product = row.original;
 
         return (
-          <ActionsDropDown>
+          <ActionsDropDown disabled={isLoading}>
             <DropdownMenuItem
               onClick={() => handleChange(product.id, product.enabled)}
             >
