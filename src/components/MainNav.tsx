@@ -5,6 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Container from "./layouts/Container";
 import ThemeSwitch from "./ThemeSwitch";
+import { DoorOpenIcon } from "lucide-react";
+import { Button } from "./ui/button";
+import { signOut } from "next-auth/react";
+import TooltipWrapper from "./TooltipWrapper";
 
 const MainNav = () => {
   const pathname = usePathname();
@@ -29,8 +33,7 @@ const MainNav = () => {
                       className={cn(
                         "flex items-center text-sm font-medium text-muted-foreground/80 hover:text-foreground/80 transition-colors duration-200",
                         {
-                          "text-foreground/80":
-                            pathname === item.href,
+                          "text-foreground/80": pathname === item.href,
                         }
                       )}
                     >
@@ -41,7 +44,21 @@ const MainNav = () => {
             </nav>
           ) : null}
         </div>
-        <ThemeSwitch />
+        <div className="flex gap-2 items-center">
+          <ThemeSwitch />
+          <TooltipWrapper content="Cerrar sesión">
+            <Button
+              variant={"outline"}
+              onClick={() =>
+                signOut({
+                  callbackUrl: "/login",
+                })
+              }
+            >
+              <DoorOpenIcon className="w-6 h-6" />
+            </Button>
+          </TooltipWrapper>
+        </div>
       </Container>
     </header>
   );

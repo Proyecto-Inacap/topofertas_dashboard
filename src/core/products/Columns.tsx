@@ -2,7 +2,12 @@ import ActionsDropDown from "@/components/table/ActionsDropDown";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { API } from "@/config";
-import { checkboxColumn, renderLink, renderPrice, TooltipRender } from "@/utils/tables/renders";
+import {
+  checkboxColumn,
+  renderLink,
+  renderPrice,
+  TooltipRender,
+} from "@/utils/tables/renders";
 import { ColumnDef } from "@tanstack/react-table";
 import axios from "axios";
 

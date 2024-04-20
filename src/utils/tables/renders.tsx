@@ -1,3 +1,4 @@
+import TooltipWrapper from "@/components/TooltipWrapper";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Tooltip,
@@ -65,21 +66,14 @@ export const TooltipRender = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          {children ? (
-            children
-          ) : (
-            <p className="max-w-[8rem] line-clamp-1 break-all w-fit overflow-hidden text-ellipsis">
-              {value}
-            </p>
-          )}
-        </TooltipTrigger>
-        <TooltipContent className="max-w-sm">
-          <p>{value}</p>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
+    <TooltipWrapper content={value}>
+      {children ? (
+        children
+      ) : (
+        <p className="max-w-[8rem] line-clamp-1 break-all w-fit overflow-hidden text-ellipsis">
+          {value}
+        </p>
+      )}
+    </TooltipWrapper>
   );
 };
