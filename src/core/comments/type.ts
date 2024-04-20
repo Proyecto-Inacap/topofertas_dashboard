@@ -4,6 +4,7 @@ import { User } from '../users/types'
 export type Comment = {
   id: string
   comment: string
+  status: boolean
   //Relations
   user: User
   userId: string

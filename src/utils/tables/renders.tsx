@@ -15,11 +15,14 @@ export const renderPrice = (value: number) => {
 
 export const renderLink = (value: string) => {
   return (
-    <Link href={value} className='w-fit hover:bg-primary/10 p-1 px-2 rounded-lg flex gap-1 items-center'>
+    <Link
+      href={value}
+      className="w-fit hover:bg-primary/10 p-1 px-2 rounded-lg flex gap-1 items-center"
+    >
       <div className="max-w-[10rem] overflow-hidden text-ellipsis ">
-       {value}
+        {value}
       </div>
-      <ExternalLinkIcon className='w-4 h-4' />
+      <ExternalLinkIcon className="w-4 h-4" />
     </Link>
   );
 };
@@ -54,12 +57,24 @@ export const checkboxColumn: CheckboxColumn<any> = {
   enableHiding: false,
 };
 
-export const TooltipRender = ({ value }: { value: string }) => {
+export const TooltipRender = ({
+  value,
+  children,
+}: {
+  value: string;
+  children?: React.ReactNode;
+}) => {
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <p className="max-w-[8rem] w-fit overflow-hidden text-ellipsis">{value}</p>
+          {children ? (
+            children
+          ) : (
+            <p className="max-w-[8rem] line-clamp-1 break-all w-fit overflow-hidden text-ellipsis">
+              {value}
+            </p>
+          )}
         </TooltipTrigger>
         <TooltipContent className="max-w-sm">
           <p>{value}</p>
