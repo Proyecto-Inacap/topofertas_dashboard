@@ -8,18 +8,17 @@ import { useRouter } from "next/navigation";
 import z from "zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useToast } from "@/components/ui/use-toast";
-import { CircleX, DoorClosed, LoaderCircle } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
+import { useToast } from '@/components/ui/use-toast';
 
 const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
+  email: z.string().email("El email debe ser válido"),
+  password: z.string().min(6, "La contraseña debe tener al menos 6 caracteres"),
 });
 
 const LoginForm = () => {
   const router = useRouter();
   const { toast } = useToast();
-
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   const {
@@ -31,50 +30,46 @@ const LoginForm = () => {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (
-    data
-  ) => {
+  const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
     if (isAuthenticating) return;
     setIsAuthenticating(true);
     try {
       const signInRes = await signIn("credentials", {
         email: data.email,
-        password:  data.password,
+        password: data.password,
         redirect: false,
       });
       if (signInRes?.ok) {
         router.push("/");
       } else {
         toast({
-          title: "Error",
-          description: "Credenciales incorrectas",
-          duration: 3000,
-          action: <CircleX size={24} className="text-red-400" />,
+          toastType: "error",
+          description: "Credenciales inválidas",
         });
       }
     } catch (error) {
       console.error("Error al autenticar", error);
+      toast({ toastType: "error", description: "Error al autenticar" });
     } finally {
       setIsAuthenticating(false);
     }
   };
   return (
-    <Card className="p-8 ">
-      <form
-        className="space-y-4"
-        onSubmit={handleSubmitForm(onSubmit)}
-      >
-        <Input placeholder="Email" {...register("email")} />
-        <Input
-          placeholder="Password"
-          type="password"
-          {...register("password")}
-        />
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={isAuthenticating}
-        >
+    <Card className="p-8 max-w-sm w-full">
+      <form className="space-y-4" onSubmit={handleSubmitForm(onSubmit)}>
+        <div className="flex flex-col gap-2">
+          <Input placeholder="Email" {...register("email")} />
+          <p className="text-red-500 text-sm">{errors.email?.message}</p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <Input
+            placeholder="Password"
+            type="password"
+            {...register("password")}
+          />
+          <p className="text-red-500 text-sm">{errors.password?.message}</p>
+        </div>
+        <Button type="submit" className="w-full" disabled={isAuthenticating}>
           {isAuthenticating ? (
             <LoaderCircle size={24} className="animate-spin" />
           ) : (

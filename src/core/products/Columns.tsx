@@ -1,6 +1,7 @@
 import ActionsDropDown from "@/components/table/ActionsDropDown";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { useToast } from "@/components/ui/use-toast";
 import { API } from "@/config";
 import {
   checkboxColumn,
@@ -16,7 +17,13 @@ interface Props {
 }
 
 export const useColumns = ({ mutate }: Props) => {
+  const { toast } = useToast();
+
   const handleChange = async (id: string, enabled: boolean) => {
+    const loading = toast({
+      toastType: "loading",
+      description: "Cambiando estado del producto",
+    });
     try {
       const response = await axios.patch(
         `/products/${id}`,
@@ -27,11 +34,21 @@ export const useColumns = ({ mutate }: Props) => {
           baseURL: API.TOPOFERTAS,
         }
       );
-      if (response.status !== 200)
+
+      if (response.status !== 200) {
         throw new Error("Error al activar/desactivar el producto");
+      }
+
       mutate();
+      toast({
+        toastType: "success",
+        description: "Estado del Producto actualizado",
+      });
     } catch (error) {
       console.log(error);
+      return toast({ toastType: "error" });
+    } finally {
+      loading.dismiss();
     }
   };
 

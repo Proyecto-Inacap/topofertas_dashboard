@@ -8,40 +8,72 @@ import axios from "axios";
 import { InfoIcon } from "lucide-react";
 
 import { Report } from "./type";
+import { useToast } from '@/components/ui/use-toast';
 
 interface Props {
   mutate: () => void;
 }
 
 export const useColumns = ({ mutate }: Props) => {
+  const { toast } = useToast();
   const handleBanUser = async (id: string) => {
+    const loading = toast({
+      toastType: "loading",
+      description: "Baneando usuario",
+    });
     try {
       const response = await axios.delete(`/users/ban/${id}`, {
         baseURL: API.TOPOFERTAS,
       });
       console.log(response);
-      if (response.status !== 200)
+      if (response.status !== 200) {
         throw new Error("Error al banear al usuario");
+      }
+
       mutate();
+      toast({
+        toastType: "success",
+        description: "Usuario baneado",
+      });
     } catch (error) {
       console.log(error);
+      return toast({ toastType: "error" });
+    } finally {
+      loading.dismiss();
     }
   };
 
   const handleBanComment = async (id: string) => {
+    const loading = toast({
+      toastType: "loading",
+      description: "Eliminando comentario",
+    });
     try {
       const response = await axios.delete(`/comments/ban/${id}`, {
         baseURL: API.TOPOFERTAS,
       });
-      if (response.status !== 200)
+      if (response.status !== 200) {
         throw new Error("Error al eliminar el comentario");
+      }
+
       mutate();
+      toast({
+        toastType: "success",
+        description: "Comentario eliminado",
+      });
     } catch (error) {
       console.log(error);
+      return toast({ toastType: "error" });
+    } finally {
+      loading.dismiss();
     }
   };
 
   const handleResolve = async (id: string) => {
+    const loading = toast({
+      toastType: "loading",
+      description: "Resolviendo reporte",
+    });
     try {
       const response = await axios.patch(
         `/reports/${id}`,
@@ -52,11 +84,20 @@ export const useColumns = ({ mutate }: Props) => {
           baseURL: API.TOPOFERTAS,
         }
       );
-      if (response.status !== 200)
+      if (response.status !== 200) {
         throw new Error("Error al resolver el reporte");
+      }
+
       mutate();
+      toast({
+        toastType: "success",
+        description: "Reporte resuelto",
+      });
     } catch (error) {
       console.log(error);
+      return toast({ toastType: "error" });
+    } finally {
+      loading.dismiss();
     }
   };
 
