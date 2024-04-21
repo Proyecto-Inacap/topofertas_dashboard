@@ -20,7 +20,7 @@ export default async function middleware(req:NextRequestWithAuth) {
     pages: {
       signIn: "/login",
       signOut: "/login",
-    },
+    }
   });
 }
 export const config = { matcher: ["/((?!assets|icon).*)"] }

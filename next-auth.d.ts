@@ -16,5 +16,7 @@ declare module "next-auth" {
 }
 
 declare module "next-auth/jwt" {
-    interface JWT extends DefaultJWT extends UserNextAuth{}
+    interface JWT  extends UserNextAuth{}
+
+    interface User extends DefaultUser  {}
 }
