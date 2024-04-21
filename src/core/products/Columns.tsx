@@ -2,7 +2,6 @@ import ActionsDropDown from "@/components/table/ActionsDropDown";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
-import { API } from "@/config";
 import {
   checkboxColumn,
   renderLink,
@@ -10,7 +9,7 @@ import {
   TooltipRender,
 } from "@/utils/tables/renders";
 import { ColumnDef } from "@tanstack/react-table";
-import axios from "axios";
+import { productApi } from "./api/productApi";
 
 interface Props {
   mutate: () => void;
@@ -25,27 +24,17 @@ export const useColumns = ({ mutate }: Props) => {
       description: "Cambiando estado del producto",
     });
     try {
-      const response = await axios.patch(
-        `/products/${id}`,
-        {
-          enabled: !enabled,
-        },
-        {
-          baseURL: API.TOPOFERTAS,
-        }
-      );
+      const {status} = await productApi.update(id, { enabled: !enabled });
 
-      if (response.status !== 200) {
+      if (status !== 200) {
         throw new Error("Error al activar/desactivar el producto");
       }
-
       mutate();
       toast({
         toastType: "success",
         description: "Estado del Producto actualizado",
       });
     } catch (error) {
-      console.log(error);
       return toast({ toastType: "error" });
     } finally {
       loading.dismiss();

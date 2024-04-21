@@ -9,6 +9,9 @@ import { InfoIcon } from "lucide-react";
 
 import { Report } from "./type";
 import { useToast } from "@/components/ui/use-toast";
+import { userApi } from "../users/api/userApi";
+import { commentApi } from "../comments/api/commentApi";
+import { reportApi } from "./api/reportApi";
 
 interface Props {
   mutate: () => void;
@@ -23,14 +26,11 @@ export const useColumns = ({ mutate }: Props) => {
       description: "Baneando usuario",
     });
     try {
-      const response = await axios.delete(`/users/ban/${id}`, {
-        baseURL: API.TOPOFERTAS,
-      });
-      console.log(response);
+      const response = await userApi.ban(id);
+
       if (response.status !== 200) {
         throw new Error("Error al banear al usuario");
       }
-
       mutate();
       toast({
         toastType: "success",
@@ -50,9 +50,8 @@ export const useColumns = ({ mutate }: Props) => {
       description: "Eliminando comentario",
     });
     try {
-      const response = await axios.delete(`/comments/ban/${id}`, {
-        baseURL: API.TOPOFERTAS,
-      });
+      const response = await commentApi.ban(id);
+
       if (response.status !== 200) {
         throw new Error("Error al eliminar el comentario");
       }
@@ -76,15 +75,7 @@ export const useColumns = ({ mutate }: Props) => {
       description: "Resolviendo reporte",
     });
     try {
-      const response = await axios.patch(
-        `/reports/${id}`,
-        {
-          status: false,
-        },
-        {
-          baseURL: API.TOPOFERTAS,
-        }
-      );
+      const response = await reportApi.update(id, { status: false });
       if (response.status !== 200) {
         throw new Error("Error al resolver el reporte");
       }
