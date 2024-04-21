@@ -1,1 +1,1 @@
-export const limits = [10, 25, 50]
+export const LIMITS = [10, 25, 50]
