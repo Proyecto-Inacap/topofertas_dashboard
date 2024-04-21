@@ -19,7 +19,10 @@ const ManagementUser = () => {
             })
           }
         >
-          <DoorOpenIcon className="w-6 h-6" />
+          <div className="flex gap-2 items-center">
+            <DoorOpenIcon className="w-6 h-6" />
+            <span>Salir</span>
+          </div>
         </Button>
       </TooltipWrapper>
     </div>
