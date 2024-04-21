@@ -1,16 +1,10 @@
-import MainNav from "@/components/MainNav";
-
+import LoadingToast from "@/components/LoadingToast";
+import { Toaster } from "@/components/ui/toaster";
+import Providers from "@/providers/Providers";
+import { cn } from "@/utils/cn";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-
-import Footer from "@/components/Footer";
-import Container from "@/components/layouts/Container";
-import LoadingToast from "@/components/LoadingToast";
-import Providers from "@/providers/Providers";
-import { cn } from "@/utils/cn";
-import { SessionProvider } from "next-auth/react";
-import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,9 +25,7 @@ export default function RootLayout({
       <body
         className={cn(inter.className, "min-h-screen flex flex-col")}
       >
-          <Providers>
-           {children}
-          </Providers>
+        <Providers>{children}</Providers>
         <LoadingToast />
         <Toaster />
       </body>

@@ -1,10 +1,10 @@
-import MainNav from "@/components/MainNav";
 import "@/app/globals.css";
 import Footer from "@/components/Footer";
 import Container from "@/components/layouts/Container";
+import MainNav from "@/components/nav/MainNav";
 import { Fragment } from "react";
 
-export default function RootLayout({
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
