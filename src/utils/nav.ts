@@ -22,4 +22,24 @@ export const navLinks: NavLink[] = [
     href: "/reports",
     permission: "DASHBOARD_MANAGER",
   },
+  {
+    title: "Categorias",
+    href: "/categories",
+    permission: "DASHBOARD_MANAGER",
+  },
+  {
+    title: "Usuarios",
+    href: "/users",
+    permission: "DASHBOARD_MANAGER",
+  },
+  {
+    title: "Tiendas",
+    href: "/stores",
+    permission: "DASHBOARD_MANAGER",
+  },
+  {
+    title: "Cupones",
+    href: "/coupons",
+    permission: "DASHBOARD_MANAGER",
+  },
 ];

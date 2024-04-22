@@ -1,4 +1,4 @@
-type Category = {
+export type Category = {
   id: string
   name: string
   //Relations
@@ -6,4 +6,5 @@ type Category = {
   //Default timestamps
   createdAt: Date
   updatedAt: Date
+  enabled: boolean
 }
