@@ -37,7 +37,7 @@ const UsersTable = ({ limit, page }: Props) => {
 
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-2xl font-bold"> Usuarios </h1>
+      
       <Input
         placeholder="Buscar"
         className="max-w-sm"

@@ -15,11 +15,5 @@ export default async function Layout({
     role: session?.user.userRole.type,
   });
 
-  return hasPermissions ? (
-    <div className="flex-1">
-      {children}
-    </div>
-  ) : (
-    <NotFoundPage />
-  );
+  return hasPermissions ?  children  : <NotFoundPage />;
 }
