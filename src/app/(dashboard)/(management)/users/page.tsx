@@ -1,4 +1,6 @@
 import { LIMITS } from "@/constants";
+import ModalCreateUser from "@/core/users/components/ModalCreateUser";
+import UserHeaderLayout from "@/core/users/components/UserHeaderLayout";
 import UsersTable from "@/core/users/components/UsersTable";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -21,7 +23,13 @@ const UsersPage = ({ searchParams: { limit, page } }: Props) => {
     redirect(`/users?${newParams.toString()}`);
   }
 
-  return <UsersTable limit={limitValue} page={pageValue} />;
+  return (
+    <div>
+      <UserHeaderLayout />
+      <UsersTable limit={limitValue} page={pageValue} />
+      <ModalCreateUser />
+    </div>
+  );
 };
 
 export default UsersPage;
