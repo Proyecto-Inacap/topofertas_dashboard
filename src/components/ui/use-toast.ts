@@ -182,9 +182,9 @@ function toast({
   dispatch({
     type: "ADD_TOAST",
     toast: {
-      toastType: toastType || 'default',
-      ...props,
       ...defaultAttributes,
+      ...props,
+      toastType: toastType || 'default',
       id,
       open: true,
       onOpenChange: (open) => {
