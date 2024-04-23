@@ -170,8 +170,8 @@ function toast({
     return dispatch({
       type: "UPDATE_TOAST",
       toast: {
-        ...props,
         ...defaultAttributes,
+        ...props,
         toastType: props.toastType || 'default',
         id
       },
