@@ -39,9 +39,7 @@ const Modal: React.FC<ModalProps> = ({
         <DialogFooter>
           {onConfirm && (
             <Button
-              onClick={() => {
-                onConfirm();
-              }}
+              onClick={onConfirm}
             >
               {buttonLabel}
             </Button>

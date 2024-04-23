@@ -3,7 +3,6 @@ import InputForm from "@/components/form/InputForm";
 import SelectForm from "@/components/form/SelectForm";
 import Modal from "@/components/modals/Modal";
 import { Form } from "@/components/ui/form";
-import { useCategories } from "@/core/categories/hooks/useCategories";
 import { useUserRoles } from "@/core/userRoles/hooks/useUserRoles";
 import { useUserModal } from "@/store/users/useUserModal";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,16 +13,17 @@ import { userApi } from "../api/userApi";
 
 const formSchema = z.object({
   username: z
-    .string({
-      message: "Ingrese un email",
-    })
-    .min(6)
-    .email("El email debe ser válido"),
+    .string()
+    .min(6, "El username debe tener al menos 6 caracteres"),
   email: z
+    .string()
+    .min(6, "El email debe tener al menos 6 caracteres")
+    .email("El email no es válido"),
+  password: z
     .string()
     .min(6, "La contraseña debe tener al menos 6 caracteres"),
   gender: z.string(),
-  role: z.string(),
+  userRoleId: z.string(),
 });
 
 interface ModalCreateUserProps {
@@ -38,11 +38,22 @@ const ModalCreateUser: React.FC<ModalCreateUserProps> = ({
   const { userRoles } = useUserRoles();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      password: "",
+      gender: "",
+        userRoleId: "",
+    },
   });
   const handleOnSubmit = async (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+    // TODO: crear toast y cosas validaciones
     try {
       const response = await userApi.create(data);
+      if (response) {
+        handleMutate();
+        setIsOpen(false);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -70,10 +81,17 @@ const ModalCreateUser: React.FC<ModalCreateUserProps> = ({
             inputName="email"
             placeholder="Ingrese un email"
           />
+          <InputForm
+            control={form.control}
+            label="Contraseña"
+            inputName="password"
+            placeholder="Ingrese un email"
+            type="password"
+          />
           <SelectForm
             control={form.control}
             label="Género"
-            inputName="genero"
+            inputName="gender"
             placeholder="Seleccione un género"
             options={[
               { value: "0", label: "Hombre" },
@@ -83,8 +101,8 @@ const ModalCreateUser: React.FC<ModalCreateUserProps> = ({
           />
           <SelectForm
             control={form.control}
-            label="Género"
-            inputName="genero"
+            label="Rol"
+            inputName="userRoleId"
             placeholder="Seleccione un género"
             options={
               userRoles?.map((role) => ({

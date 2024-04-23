@@ -53,7 +53,9 @@ const UsersTable = ({ limit, page }: Props) => {
         setPagination={setPagination}
         count={count || 0}
       />
-      <ModalCreateUser handleMutate={mutate}/>
+      <ModalCreateUser handleMutate={() => {
+        mutate();
+      }}/>
 
     </div>
   );

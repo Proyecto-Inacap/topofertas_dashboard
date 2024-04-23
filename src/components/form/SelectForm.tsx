@@ -36,11 +36,11 @@ const SelectForm: React.FC<InputFormProps> = ({
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Select {...field} >
+            <Select onValueChange={field.onChange} defaultValue={field.value}>
               <SelectTrigger >
                 <SelectValue placeholder={placeholder} />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent >
                 <SelectGroup>
                     {options?.map((option) => (
                         <SelectItem key={option.value} value={option.value}>
