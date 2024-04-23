@@ -1,5 +1,4 @@
 import { LIMITS } from "@/constants";
-import ModalCreateUser from "@/core/users/components/ModalCreateUser";
 import UserHeaderLayout from "@/core/users/components/UserHeaderLayout";
 import UsersTable from "@/core/users/components/UsersTable";
 import { redirect } from "next/navigation";
@@ -27,7 +26,6 @@ const UsersPage = ({ searchParams: { limit, page } }: Props) => {
     <div>
       <UserHeaderLayout />
       <UsersTable limit={limitValue} page={pageValue} />
-      <ModalCreateUser />
     </div>
   );
 };

@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useUsers } from "../hooks/useUsers";
 import { useColumns } from "../Columns";
+import ModalCreateUser from "./ModalCreateUser";
 
 interface Props {
   limit: number;
@@ -52,6 +53,8 @@ const UsersTable = ({ limit, page }: Props) => {
         setPagination={setPagination}
         count={count || 0}
       />
+      <ModalCreateUser handleMutate={mutate}/>
+
     </div>
   );
 };
