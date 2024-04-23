@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useColumns } from "../Columns";
 import { useCategories } from "../hooks/useCategories";
+import ModalCreateCategory from './ModalCreateCategory';
 
 interface Props {
   limit: number;
@@ -35,10 +36,11 @@ const CategoryTable = ({ limit, page }: Props) => {
     setSearchValue(e.target.value);
     mutate();
   };
-
+console.log(categories);
   return (
+    <>
+  <ModalCreateCategory handleMutate={mutate} />
     <div className="flex flex-col gap-5">
-      <h1 className="text-2xl font-bold">Categorias</h1>
       <Input
         placeholder="Buscar"
         className="max-w-sm"
@@ -52,8 +54,9 @@ const CategoryTable = ({ limit, page }: Props) => {
         pageSize={pageSize}
         setPagination={setPagination}
         count={count || 0}
-      />
+        />
     </div>
+        </>
   );
 };
 

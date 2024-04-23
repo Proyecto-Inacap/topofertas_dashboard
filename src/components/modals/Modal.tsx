@@ -17,6 +17,7 @@ interface ModalProps {
   setIsOpen: (isOpen: boolean) => void;
   buttonLabel?: string;
   onConfirm?: () => void;
+  isDisabled?: boolean;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -26,7 +27,8 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   setIsOpen,
   buttonLabel,
-  onConfirm
+  onConfirm,
+  isDisabled,
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -40,6 +42,7 @@ const Modal: React.FC<ModalProps> = ({
           {onConfirm && (
             <Button
               onClick={onConfirm}
+              disabled={isDisabled}
             >
               {buttonLabel}
             </Button>
