@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint \"src/**/*.ts\" --fix & prettier --check --write src/*.{json,svg,js,jsx,ts,tsx}"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
