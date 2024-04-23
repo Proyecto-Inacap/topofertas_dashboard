@@ -1,4 +1,4 @@
-type Coupon =  {
+export type Coupon =  {
   id: string
   code: string
   description: string
