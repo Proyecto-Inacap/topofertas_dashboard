@@ -13,12 +13,14 @@ import {
 const TOAST_LIMIT = 1;
 const TOAST_REMOVE_DELAY = 1000000;
 
+type ToastType = "default" | "success" | "error" | "loading";
+
 type ToasterToast = ToastProps & {
   id: string;
   title?: React.ReactNode;
   description?: React.ReactNode;
   action?: ToastActionElement;
-  toastType: "default" | "success" | "error" | "loading";
+  toastType: ToastType;
 };
 
 const actionTypes = {
@@ -148,31 +150,41 @@ export type Toast = Omit<ToasterToast, "id">;
 function toast({
   toastType,
   ...props
-}: Toast & { toastType?: "success" | "error" | "loading" }) {
+}: Toast & { toastType?: ToastType }) {
   const id = genId();
-
-  const update = (props: ToasterToast) =>
-    dispatch({
-      type: "UPDATE_TOAST",
-      toast: { ...props, id },
-    });
-  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id });
-
-  const defaultAttributes =
-    toastType === "error"
+  const setDefaultAttributes = (toastType: ToastType) => {
+    return toastType === "error"
       ? defaultErrorAttributes
       : toastType === "success"
         ? defaultSuccessAttributes
         : toastType === "loading"
           ? defaultLoadingAttributes
           : {};
+  }
+
+  const defaultAttributes = setDefaultAttributes(toastType || 'default');
+
+  const update = (props: Toast & { toastType: ToastType }) => {
+    const defaultAttributes = setDefaultAttributes(props.toastType);
+
+    return dispatch({
+      type: "UPDATE_TOAST",
+      toast: {
+        ...props,
+        ...defaultAttributes,
+        toastType: props.toastType || 'default',
+        id
+      },
+    })
+  };
+  const dismiss = () => dispatch({ type: "DISMISS_TOAST", toastId: id });
 
   dispatch({
     type: "ADD_TOAST",
     toast: {
-      toastType: toastType ||'default',
-      ...defaultAttributes,
+      toastType: toastType || 'default',
       ...props,
+      ...defaultAttributes,
       id,
       open: true,
       onOpenChange: (open) => {

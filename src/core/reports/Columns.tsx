@@ -21,7 +21,7 @@ export const useColumns = ({ mutate }: Props) => {
   const { toast, toasts } = useToast();
   const isLoading = toasts.some((t) => t.toastType === "loading");
   const handleBanUser = async (id: string) => {
-    const loading = toast({
+    const toaster = toast({
       toastType: "loading",
       description: "Baneando usuario",
     });
@@ -32,20 +32,17 @@ export const useColumns = ({ mutate }: Props) => {
         throw new Error("Error al banear al usuario");
       }
       mutate();
-      toast({
+      toaster.update({
         toastType: "success",
         description: "Usuario baneado",
       });
     } catch (error) {
-      console.log(error);
-      return toast({ toastType: "error" });
-    } finally {
-      loading.dismiss();
+      return toaster.update({ toastType: "error" });
     }
   };
 
   const handleBanComment = async (id: string) => {
-    const loading = toast({
+    const toaster = toast({
       toastType: "loading",
       description: "Eliminando comentario",
     });
@@ -57,20 +54,17 @@ export const useColumns = ({ mutate }: Props) => {
       }
 
       mutate();
-      toast({
+      toaster.update({
         toastType: "success",
         description: "Comentario eliminado",
       });
     } catch (error) {
-      console.log(error);
-      return toast({ toastType: "error" });
-    } finally {
-      loading.dismiss();
+      return toaster.update({ toastType: "error" });
     }
   };
 
   const handleResolve = async (id: string) => {
-    const loading = toast({
+    const toaster = toast({
       toastType: "loading",
       description: "Resolviendo reporte",
     });
@@ -81,15 +75,12 @@ export const useColumns = ({ mutate }: Props) => {
       }
 
       mutate();
-      toast({
+      toaster.update({
         toastType: "success",
         description: "Reporte resuelto",
       });
     } catch (error) {
-      console.log(error);
-      return toast({ toastType: "error" });
-    } finally {
-      loading.dismiss();
+      return toaster.update({ toastType: "error" });
     }
   };
 

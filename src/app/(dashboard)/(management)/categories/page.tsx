@@ -19,7 +19,7 @@ const CategoryPage = ({ searchParams: { limit, page } }: Props) => {
       limit: "10",
       page: page ? page : "",
     });
-    redirect(`/products?${newParams.toString()}`);
+    redirect(`/categories?${newParams.toString()}`);
   }
 
   return <CategoryTable limit={limitValue} page={pageValue} />;

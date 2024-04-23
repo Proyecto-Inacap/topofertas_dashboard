@@ -12,7 +12,7 @@ interface Props {
   page: number;
 }
 
-const ReportTable = ({ limit, page }: Props) => {
+const ReportsTable = ({ limit, page }: Props) => {
   const { setLoadingState } = useLoadingState();
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: page - 1,
@@ -57,4 +57,4 @@ const ReportTable = ({ limit, page }: Props) => {
   );
 };
 
-export default ReportTable;
+export default ReportsTable;

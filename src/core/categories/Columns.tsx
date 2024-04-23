@@ -1,14 +1,11 @@
 import ActionsDropDown from "@/components/table/ActionsDropDown";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
+import { useToast } from "@/components/ui/use-toast";
 import { API } from "@/config";
-import {
-  checkboxColumn,
-  TooltipRender,
-} from "@/utils/tables/renders";
+import { checkboxColumn, TooltipRender } from "@/utils/tables/renders";
 import { ColumnDef } from "@tanstack/react-table";
 
-import { useToast } from "@/components/ui/use-toast";
 import { categoryApi } from "./api/categoryApi";
 import { Category } from "./types";
 
@@ -19,26 +16,25 @@ interface Props {
 export const useColumns = ({ mutate }: Props) => {
   const { toast, toasts } = useToast();
   const isLoading = toasts.some((t) => t.toastType === "loading");
+
   const handleChange = async (id: string, enabled: boolean) => {
-    const loading = toast({
+    const toaster = toast({
       toastType: "loading",
-      description: "Cambiando estado del producto",
+      description: "Cambiando estado de la categoría",
     });
     try {
-      const {status} = await categoryApi.update(id, { enabled: !enabled });
+      const { status } = await categoryApi.update(id, { enabled: !enabled });
 
       if (status !== 200) {
-        throw new Error("Error al activar/desactivar el producto");
+        throw new Error("Error al activar/desactivar la categoría");
       }
       mutate();
-      toast({
+      toaster.update({
         toastType: "success",
-        description: "Estado del Producto actualizado",
-      });
+        description: "Estado de la categoría cambiado",
+      })
     } catch (error) {
-      return toast({ toastType: "error" });
-    } finally {
-      loading.dismiss();
+      return toaster.update({ toastType: "error" });
     }
   };
 
@@ -72,9 +68,7 @@ export const useColumns = ({ mutate }: Props) => {
         return (
           <ActionsDropDown disabled={isLoading}>
             <DropdownMenuItem
-              onClick={() =>
-                handleChange(category.id, category.enabled)
-              }
+              onClick={() => handleChange(category.id, category.enabled)}
             >
               {category.enabled ? "Desactivar" : "Activar"}
             </DropdownMenuItem>

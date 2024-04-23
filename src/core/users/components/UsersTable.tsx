@@ -4,15 +4,14 @@ import { useLoadingState } from "@/store/loadingState";
 import { PaginationState } from "@tanstack/react-table";
 import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { useUsers } from "../hooks/useUsers";
 import { useColumns } from "../Columns";
-import { useCategories } from "../hooks/useCategories";
 
 interface Props {
   limit: number;
   page: number;
 }
-
-const CategoryTable = ({ limit, page }: Props) => {
+const UsersTable = ({ limit, page }: Props) => {
   const { setLoadingState } = useLoadingState();
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: page - 1,
@@ -20,7 +19,7 @@ const CategoryTable = ({ limit, page }: Props) => {
   });
   const [searchValue, setSearchValue] = useState("");
 
-  const { categories, count, isLoading, mutate } = useCategories({
+  const { users, count, isLoading, mutate } = useUsers({
     limit,
     page: pageIndex,
     searchValue,
@@ -38,7 +37,7 @@ const CategoryTable = ({ limit, page }: Props) => {
 
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-2xl font-bold">Categorias</h1>
+      <h1 className="text-2xl font-bold"> Reportes </h1>
       <Input
         placeholder="Buscar"
         className="max-w-sm"
@@ -47,7 +46,7 @@ const CategoryTable = ({ limit, page }: Props) => {
       />
       <DataTable
         columns={columns}
-        data={categories || []}
+        data={users || []}
         pageIndex={pageIndex}
         pageSize={pageSize}
         setPagination={setPagination}
@@ -57,4 +56,4 @@ const CategoryTable = ({ limit, page }: Props) => {
   );
 };
 
-export default CategoryTable;
+export default UsersTable;

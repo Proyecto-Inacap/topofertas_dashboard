@@ -1,11 +1,12 @@
-import { navLinks } from "@/utils/nav";
-import Link from "next/link";
-import Container from "../layouts/Container";
-import NavList from "./NavList";
-import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { HasPermissions } from "@/core/session/components/hasPermission";
+import { navLinks } from "@/utils/nav";
+import { getServerSession } from "next-auth";
+import Link from "next/link";
+
+import Container from "../layouts/Container";
 import ManagementUser from "./ManagementUser";
+import NavList from "./NavList";
 
 const MainNav = async () => {
   const session = await getServerSession(authOptions);

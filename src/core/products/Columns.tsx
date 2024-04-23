@@ -20,7 +20,7 @@ export const useColumns = ({ mutate }: Props) => {
   const isLoading = toasts.some((t) => t.toastType === "loading");
   
   const handleChange = async (id: string, enabled: boolean) => {
-    const loading = toast({
+    const toaster = toast({
       toastType: "loading",
       description: "Cambiando estado del producto",
     });
@@ -31,14 +31,12 @@ export const useColumns = ({ mutate }: Props) => {
         throw new Error("Error al activar/desactivar el producto");
       }
       mutate();
-      toast({
+      toaster.update({
         toastType: "success",
         description: "Estado del Producto actualizado",
       });
     } catch (error) {
-      return toast({ toastType: "error" });
-    } finally {
-      loading.dismiss();
+      return toaster.update({ toastType: "error" });
     }
   };
 

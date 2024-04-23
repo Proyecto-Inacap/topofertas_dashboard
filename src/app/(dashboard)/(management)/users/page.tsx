@@ -1,5 +1,5 @@
 import { LIMITS } from "@/constants";
-import ReportsTable from "@/core/reports/components/ReportsTable";
+import UsersTable from "@/core/users/components/UsersTable";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -9,8 +9,7 @@ interface Props {
     page?: string;
   };
 }
-
-const ReportPage = ({ searchParams: { limit, page } }: Props) => {
+const UsersPage = ({ searchParams: { limit, page } }: Props) => {
   const limitValue = Number(limit) || 10;
   const pageValue = Number(page) || 1;
 
@@ -19,10 +18,10 @@ const ReportPage = ({ searchParams: { limit, page } }: Props) => {
       limit: "10",
       page: page ? page : "",
     });
-    redirect(`/reports?${newParams.toString()}`);
+    redirect(`/users?${newParams.toString()}`);
   }
 
-  return <ReportsTable limit={limitValue} page={pageValue} />;
+  return <UsersTable limit={limitValue} page={pageValue} />;
 };
 
-export default ReportPage;
+export default UsersPage;
