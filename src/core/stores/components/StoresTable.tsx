@@ -4,14 +4,14 @@ import { useLoadingState } from "@/store/loadingState";
 import { PaginationState } from "@tanstack/react-table";
 import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { useUsers } from "../hooks/useUsers";
-import { useColumns } from "../Columns";
+import { useStores } from '../hooks/useStores';
+import { useColumns } from '../Columns';
 
 interface Props {
   limit: number;
   page: number;
 }
-const UsersTable = ({ limit, page }: Props) => {
+const StoresTable = ({ limit, page }: Props) => {
   const { setLoadingState } = useLoadingState();
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: page - 1,
@@ -19,7 +19,7 @@ const UsersTable = ({ limit, page }: Props) => {
   });
   const [searchValue, setSearchValue] = useState("");
 
-  const { users, count, isLoading, mutate } = useUsers({
+  const { stores, count, isLoading, mutate } = useStores({
     limit,
     page: pageIndex,
     searchValue,
@@ -37,7 +37,7 @@ const UsersTable = ({ limit, page }: Props) => {
 
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-2xl font-bold"> Usuarios </h1>
+      <h1 className="text-2xl font-bold"> Tiendas </h1>
       <Input
         placeholder="Buscar"
         className="max-w-sm"
@@ -46,7 +46,7 @@ const UsersTable = ({ limit, page }: Props) => {
       />
       <DataTable
         columns={columns}
-        data={users || []}
+        data={stores || []}
         pageIndex={pageIndex}
         pageSize={pageSize}
         setPagination={setPagination}
@@ -56,4 +56,4 @@ const UsersTable = ({ limit, page }: Props) => {
   );
 };
 
-export default UsersTable;
+export default StoresTable;

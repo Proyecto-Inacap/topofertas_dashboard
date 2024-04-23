@@ -20,6 +20,7 @@ interface Props {
 export const useColumns = ({ mutate }: Props) => {
   const { toast, toasts } = useToast();
   const isLoading = toasts.some((t) => t.toastType === "loading");
+  
   const handleBanUser = async (id: string) => {
     const toaster = toast({
       toastType: "loading",
