@@ -3,30 +3,34 @@ import InputForm from "@/components/form/InputForm";
 import Modal from "@/components/modals/Modal";
 import { Form } from "@/components/ui/form";
 import { useToast } from '@/components/ui/use-toast';
-import { useCategoryModal } from '@/store/categories/useCategoryModal';
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { categoryApi } from '../api/categoryApi';
+import { useStoreModal } from '@/store/stores/useStoreModal';
+import { storeApi } from '../api/storeApi';
 
 const formSchema = z.object({
   name: z.string({
     required_error: "El nombre es requerido",
   }).min(3, "El nombre debe tener al menos 3 caracteres"),
+  logoImage: z.string({
+    required_error: "La imagen es requerida",
+  })
 });
 
 interface Props {
   handleMutate: () => void;
 }
 
-const ModalCreateCategory = ({handleMutate}:Props) => {
-  const { isOpen, setIsOpen } = useCategoryModal();
+const ModalCreateStore = ({handleMutate}:Props) => {
+  const { isOpen, setIsOpen } = useStoreModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: ''
+      name: '',
+      logoImage: '/assets/logo.svg',
     }
   });
 
@@ -38,29 +42,30 @@ const ModalCreateCategory = ({handleMutate}:Props) => {
     if(isSubmitting) return;
     const toaster = toast({
       toastType: 'loading',
-      description: 'Creando categoría...',
+      description: 'Creando tienda...',
     })
+    console.log(data);
    try {
-    const response = await categoryApi.create(data);
+    const response = await storeApi.create(data);
 
-    if(response.status !== 200) {throw new Error('Error al crear categoría')}
+    if(response.status !== 200) {throw new Error('Error al crear la tienda')}
     handleMutate();
     setIsOpen(false);
     toaster.update({
       toastType: 'success',
-      description: 'Categoría creada correctamente',
+      description: 'Tienda creada correctamente',
     })
    } catch (error) {
     toaster.update({
       toastType: 'error',
-      description: 'Error al crear categoría',
+      description: 'Error al crear la tienda',
     })
    }
   };
 
   return (
     <Modal
-      title="Crear Categoría"
+      title="Crear Tienda"
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       buttonLabel="Crear"
@@ -68,7 +73,7 @@ const ModalCreateCategory = ({handleMutate}:Props) => {
       isDisabled={ isSubmitting}
     >
       <Form {...form}>
-        <form>
+        <form onSubmit={form.handleSubmit(handleOnSubmit)}>
           <InputForm
             control={form.control}
             label="Nombre"
@@ -80,4 +85,4 @@ const ModalCreateCategory = ({handleMutate}:Props) => {
   );
 };
 
-export default ModalCreateCategory;
+export default ModalCreateStore;
