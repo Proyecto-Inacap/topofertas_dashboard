@@ -1,4 +1,5 @@
 import { LIMITS } from "@/constants";
+import CategoryHeaderLayout from '@/core/categories/components/CategoryHeaderLayout';
 import CategoryTable from "@/core/categories/components/CategoryTable";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -22,7 +23,12 @@ const CategoryPage = ({ searchParams: { limit, page } }: Props) => {
     redirect(`/categories?${newParams.toString()}`);
   }
 
-  return <CategoryTable limit={limitValue} page={pageValue} />;
+  return (
+    <>
+    <CategoryHeaderLayout />
+  <CategoryTable limit={limitValue} page={pageValue} />
+    </>
+  );
 };
 
 export default CategoryPage;
