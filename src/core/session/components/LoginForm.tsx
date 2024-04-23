@@ -19,20 +19,18 @@ const formSchema = z.object({
 const LoginForm = () => {
   const router = useRouter();
   const { toast } = useToast();
-  const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   const {
     handleSubmit: handleSubmitForm,
     register,
-    formState: { errors },
+    formState: { errors, isSubmitting, isSubmitSuccessful },
     setError,
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof formSchema>> = async (data) => {
-    if (isAuthenticating) return;
-    setIsAuthenticating(true);
+    if (isSubmitting || isSubmitSuccessful) return;
     try {
       const signInRes = await signIn("credentials", {
         email: data.email,
@@ -50,8 +48,6 @@ const LoginForm = () => {
     } catch (error) {
       console.error("Error al autenticar", error);
       toast({ toastType: "error", description: "Error al autenticar" });
-    } finally {
-      setIsAuthenticating(false);
     }
   };
   return (
@@ -69,8 +65,8 @@ const LoginForm = () => {
           />
           <p className="text-red-500 text-sm">{errors.password?.message}</p>
         </div>
-        <Button type="submit" className="w-full" disabled={isAuthenticating}>
-          {isAuthenticating ? (
+        <Button type="submit" className="w-full" disabled={isSubmitting || isSubmitSuccessful}>
+          {isSubmitting || isSubmitSuccessful ? (
             <LoaderCircle size={24} className="animate-spin" />
           ) : (
             <span>Iniciar sesión</span>

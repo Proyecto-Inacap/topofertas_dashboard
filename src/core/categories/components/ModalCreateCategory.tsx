@@ -27,9 +27,12 @@ const ModalCreateCategory = ({handleMutate}:Props) => {
     resolver: zodResolver(formSchema),
   });
 
+  const {formState:{ isSubmitting}} = form;
+
   const {toast} = useToast();
 
   const handleOnSubmit = async(data: z.infer<typeof formSchema>) => {
+    if(isSubmitting) return;
     const toaster = toast({
       toastType: 'loading',
       description: 'Creando categoría...',
@@ -59,6 +62,7 @@ const ModalCreateCategory = ({handleMutate}:Props) => {
       setIsOpen={setIsOpen}
       buttonLabel="Crear"
       onConfirm={form.handleSubmit(handleOnSubmit)}
+      isDisabled={ isSubmitting}
     >
       <Form {...form}>
         <form>
