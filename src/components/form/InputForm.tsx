@@ -10,18 +10,19 @@ interface InputFormProps {
     placeholder?: string;
     inputName: string;
     description?: string;
+    type?: string;
 }
 
-const InputForm : React.FC<InputFormProps> = ({ control,label,placeholder,inputName,description }) => {
+const InputForm : React.FC<InputFormProps> = ({ control,label,placeholder,inputName,description, type }) => {
   return (
     <FormField
       control={control}
       name={inputName}
-      render={({ field,formState:{errors} }) => (
+      render={({ field }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input placeholder={placeholder} {...field} />
+            <Input placeholder={placeholder} type={type} {...field} />
           </FormControl>
           <FormDescription>
             {description}
