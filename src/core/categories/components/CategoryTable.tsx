@@ -36,10 +36,7 @@ const CategoryTable = ({ limit, page }: Props) => {
     setSearchValue(e.target.value);
     mutate();
   };
-console.log(categories);
   return (
-    <>
-  <ModalCreateCategory handleMutate={mutate} />
     <div className="flex flex-col gap-5">
       <Input
         placeholder="Buscar"
@@ -55,8 +52,8 @@ console.log(categories);
         setPagination={setPagination}
         count={count || 0}
         />
+      <ModalCreateCategory handleMutate={mutate} />
     </div>
-        </>
   );
 };
 

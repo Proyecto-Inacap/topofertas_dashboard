@@ -10,5 +10,12 @@ export const storeApi = {
             data
         );
         return response;
-    }
+    },
+    create: async (data: Object)=> {
+        const response = await axios.post(
+            `${BASE_URL_ROUTE}`,
+            data
+        );
+        return response;
+    },
 }

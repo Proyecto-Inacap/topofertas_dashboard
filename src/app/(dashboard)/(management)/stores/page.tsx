@@ -1,5 +1,6 @@
 import { LIMITS } from "@/constants";
-import StoresTable from '@/core/stores/components/StoresTable';
+import StoreHeaderLayout from '@/core/stores/components/StoreHeaderLayout';
+import StoreTable from '@/core/stores/components/StoreTable';
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -21,7 +22,12 @@ const StoresPage = ({ searchParams: { limit, page } }: Props) => {
     redirect(`/stores?${newParams.toString()}`);
   }
 
-  return <StoresTable limit={limitValue} page={pageValue} />;
+  return (
+    <>
+  <StoreHeaderLayout />
+  <StoreTable limit={limitValue} page={pageValue} />
+    </>
+  );
 };
 
 export default StoresPage;

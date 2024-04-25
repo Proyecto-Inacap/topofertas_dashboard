@@ -20,7 +20,6 @@ interface InputFormProps {
   description?: string;
   type?: InputType
 }
-
 const InputForm: React.FC<InputFormProps> = ({
   control,
   label,

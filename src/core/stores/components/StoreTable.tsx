@@ -6,12 +6,13 @@ import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useStores } from '../hooks/useStores';
 import { useColumns } from '../Columns';
+import ModalCreateStore from './ModalCreateStore';
 
 interface Props {
   limit: number;
   page: number;
 }
-const StoresTable = ({ limit, page }: Props) => {
+const StoreTable = ({ limit, page }: Props) => {
   const { setLoadingState } = useLoadingState();
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: page - 1,
@@ -37,7 +38,6 @@ const StoresTable = ({ limit, page }: Props) => {
 
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-2xl font-bold"> Tiendas </h1>
       <Input
         placeholder="Buscar"
         className="max-w-sm"
@@ -51,9 +51,10 @@ const StoresTable = ({ limit, page }: Props) => {
         pageSize={pageSize}
         setPagination={setPagination}
         count={count || 0}
-      />
+        />
+        <ModalCreateStore handleMutate={mutate} />
     </div>
   );
 };
 
-export default StoresTable;
+export default StoreTable;
