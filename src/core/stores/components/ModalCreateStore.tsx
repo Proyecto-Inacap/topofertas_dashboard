@@ -46,15 +46,9 @@ const ModalCreateStore = ({handleMutate}:Props) => {
     })
    try {
     const formData = new FormData();
-    formData.append('file', data.logoImage);
-    formData.append('cloud_name', 'dxzsxrzy4');
-    formData.append('upload_preset', 'stores-logos');
-    const res = await axios.post(`https://api.cloudinary.com/v1_1/dxzsxrzy4/auto/upload`, formData)
-    if(res.status !== 200) throw new Error('Error al subir la imagen')
-    const response = await storeApi.create({
-      name: data.name,
-      logoImage: res.data.secure_url
-    });
+    formData.append('name', data.name);
+    formData.append('logoImage', data.logoImage as File);
+    const response = await storeApi.create(formData);
 
     if(response.status !== 200) {
       throw new Error('Error al crear la tienda')

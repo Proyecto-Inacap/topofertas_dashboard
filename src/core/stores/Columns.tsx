@@ -1,7 +1,10 @@
 import ActionsDropDown from "@/components/table/ActionsDropDown";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import { checkboxColumn, TooltipRender } from "@/utils/tables/renders";
+import {
+  checkboxColumn,
+  TooltipRender,
+} from "@/utils/tables/renders";
 import { ColumnDef } from "@tanstack/react-table";
 import { ImageOffIcon } from "lucide-react";
 
@@ -24,7 +27,9 @@ export const useColumns = ({ mutate }: Props) => {
     });
 
     try {
-      const response = await storeApi.update(id, { enabled: !enabled });
+      const response = await storeApi.update(id, {
+        enabled: !enabled,
+      });
 
       if (response.status !== 200) {
         throw new Error("Error al cambiar el estado de la tienda");
@@ -53,20 +58,17 @@ export const useColumns = ({ mutate }: Props) => {
       header: "Logo",
       cell: ({ row }) => {
         const value = row.original.logoImage;
-        return (
-          <>
-            {value ? (
-              <Image
-                src={value.replace(".png", ".webp")}
-                alt="Logo"
-                width={50}
-                height={50}
-                className="rounded-full w-12 h-auto"
-              />
-            ) : (
-              <ImageOffIcon />
-            )}
-          </>
+        return value ? (
+          <Image
+            src={value}
+            alt="Logo"
+            width={200}
+            height={50}
+            className="object-contain w-24 h-auto"
+          />
+        ) : (
+          <ImageOffIcon />
+
         );
       },
     },
@@ -92,7 +94,9 @@ export const useColumns = ({ mutate }: Props) => {
         return (
           <ActionsDropDown disabled={isLoading}>
             <DropdownMenuItem
-              onClick={() => handleChangeStatus(store.id, store.enabled)}
+              onClick={() =>
+                handleChangeStatus(store.id, store.enabled)
+              }
             >
               {store.enabled ? "Desactivar" : "Activar"}
             </DropdownMenuItem>
