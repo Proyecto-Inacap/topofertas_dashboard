@@ -57,11 +57,11 @@ export const useColumns = ({ mutate }: Props) => {
           <>
             {value ? (
               <Image
-                src={value}
+                src={value.replace(".png", ".webp")}
                 alt="Logo"
                 width={50}
                 height={50}
-                className="rounded-full"
+                className="rounded-full w-12 h-auto"
               />
             ) : (
               <ImageOffIcon />
