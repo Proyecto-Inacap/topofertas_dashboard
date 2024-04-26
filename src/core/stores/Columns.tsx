@@ -68,6 +68,7 @@ export const useColumns = ({ mutate }: Props) => {
           />
         ) : (
           <ImageOffIcon />
+
         );
       },
     },
