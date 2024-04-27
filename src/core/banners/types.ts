@@ -1,4 +1,6 @@
-type Banner = {
+import { Store } from '../stores/types'
+
+export type Banner = {
   id: string
   image: string
   link: string

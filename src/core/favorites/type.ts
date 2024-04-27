@@ -1,4 +1,7 @@
-type Favorite = {
+import { Product } from '../products/types'
+import { User } from '../users/types'
+
+export type Favorite = {
   id: string
   receiveNotifications: boolean
   //Relations

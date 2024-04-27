@@ -10,7 +10,7 @@ import { ImageOffIcon } from "lucide-react";
 
 import { useToast } from "@/components/ui/use-toast";
 import { storeApi } from "./api/storeApi";
-import {CldImage} from 'next-cloudinary'
+import { CldImage } from 'next-cloudinary'
 
 interface Props {
   mutate: () => void;
@@ -65,7 +65,7 @@ export const useColumns = ({ mutate }: Props) => {
             width={200}
             height={50}
             className="object-contain w-20 h-auto"
-            
+
           />
         ) : (
           <ImageOffIcon size={50} />

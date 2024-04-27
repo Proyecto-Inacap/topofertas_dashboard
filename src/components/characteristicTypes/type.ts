@@ -1,4 +1,6 @@
-type CharacteristicType = {
+import { Characteristic } from '../characteristics/types'
+
+export type CharacteristicType = {
   id: string
   type: string
   //Relations

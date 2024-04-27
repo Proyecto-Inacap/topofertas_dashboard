@@ -1,3 +1,5 @@
+import { Store } from '../stores/types'
+
 export type Coupon =  {
   id: string
   code: string

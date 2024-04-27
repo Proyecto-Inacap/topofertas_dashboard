@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import { LIMITS } from "@/constants";
 import ProductTable from "@/core/products/components/ProductTable";
 import { getServerSession } from "next-auth";

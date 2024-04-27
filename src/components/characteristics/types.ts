@@ -1,4 +1,8 @@
-type Characteristic = {
+import { Product } from '@/core/products/types'
+
+import { CharacteristicType } from '../characteristicTypes/type'
+
+export type Characteristic = {
   id: string
   detalle: string
   //Relations

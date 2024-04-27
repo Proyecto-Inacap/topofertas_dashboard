@@ -1,4 +1,6 @@
 import { CommentLikes } from '../commentLikes/type'
+import { Product } from '../products/types'
+import { Report } from '../reports/type'
 import { User } from '../users/types'
 
 export type Comment = {

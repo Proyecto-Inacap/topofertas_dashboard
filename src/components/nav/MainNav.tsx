@@ -1,4 +1,4 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import { HasPermissions } from "@/core/session/components/hasPermission";
 import { navLinks } from "@/utils/nav";
 import { getServerSession } from "next-auth";

@@ -1,4 +1,8 @@
-type Store = {
+import { Banner } from '../banners/types'
+import { Coupon } from '../coupons/types'
+import { Product } from '../products/types'
+
+export type Store = {
   id: string
   name: string
   logoImage: string

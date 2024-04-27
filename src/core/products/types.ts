@@ -1,4 +1,13 @@
-type Product = {
+import { Characteristic } from '@/components/characteristics/types'
+
+import { Category } from '../categories/types'
+import { Comment } from '../comments/type'
+import { Favorite } from '../favorites/type'
+import { HistoricalPrice } from '../historicalPrices/type'
+import { Rating } from '../ratings/type'
+import { Store } from '../stores/types'
+
+export type Product = {
   id: string
   name: string
   stock: number

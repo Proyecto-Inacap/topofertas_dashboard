@@ -1,4 +1,7 @@
-type Rating = {
+import { Product } from '../products/types'
+import { User } from '../users/types'
+
+export type Rating = {
   id: string
   numberRating: number
   //Relations

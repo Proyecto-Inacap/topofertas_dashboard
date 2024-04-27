@@ -1,7 +1,7 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { HasPermissions } from "@/core/session/components/hasPermission";
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 import NotFoundPage from "@/components/notFound/NotFoundPage";
+import { HasPermissions } from "@/core/session/components/hasPermission";
+import { getServerSession } from "next-auth";
 
 export default async function Layout({
   children,

@@ -1,4 +1,5 @@
 import { API } from "@/config";
+import { User } from '@/core/users/types';
 import axios from "axios";
 
 export const authenticate = async (email: string, password: string) => {
