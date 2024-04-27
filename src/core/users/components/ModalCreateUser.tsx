@@ -110,9 +110,9 @@ const ModalCreateUser: React.FC<ModalCreateUserProps> = ({
             inputName="gender"
             placeholder="Seleccione un género"
             options={[
-              { value: "0", label: "Hombre" },
-              { value: "1", label: "Mujer" },
-              { value: "2", label: "Otro" },
+              { value: "Hombre", label: "Hombre" },
+              { value: "Mujer", label: "Mujer" },
+              { value: "Otro", label: "Otro" },
             ]}
           />
           <SelectForm
