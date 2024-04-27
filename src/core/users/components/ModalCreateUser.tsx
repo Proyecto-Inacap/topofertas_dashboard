@@ -43,7 +43,7 @@ const ModalCreateUser: React.FC<ModalCreateUserProps> = ({
       email: "",
       password: "",
       gender: "",
-        userRoleId: "",
+      userRoleId: "",
     },
   });
   const handleOnSubmit = async (data: z.infer<typeof formSchema>) => {

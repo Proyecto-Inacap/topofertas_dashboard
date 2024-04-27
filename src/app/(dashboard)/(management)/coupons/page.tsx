@@ -1,14 +1,16 @@
 import { LIMITS } from "@/constants";
-import CouponsTable from '@/core/coupons/components/CouponsTable';
+import CouponHeaderLayout from '@/core/coupons/components/CouponHeaderLayout';
+import CouponTable from '@/core/coupons/components/CouponTable';
 import { redirect } from "next/navigation";
 import React from "react";
+
 interface Props {
   searchParams: {
     limit?: string;
     page?: string;
   };
 }
-const CouponsPage = ({ searchParams: { limit, page } }: Props) => {
+const CouponPage = ({ searchParams: { limit, page } }: Props) => {
   const limitValue = Number(limit) || 10;
   const pageValue = Number(page) || 1;
 
@@ -17,10 +19,15 @@ const CouponsPage = ({ searchParams: { limit, page } }: Props) => {
       limit: "10",
       page: page ? page : "",
     });
-    redirect(`/reports?${newParams.toString()}`);
+    redirect(`/coupons?${newParams.toString()}`);
   }
 
-  return <CouponsTable limit={limitValue} page={pageValue} />;
+  return (
+    <>
+      <CouponHeaderLayout />
+      <CouponTable limit={limitValue} page={pageValue} />
+    </>
+  );
 };
 
-export default CouponsPage;
+export default CouponPage;

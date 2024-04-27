@@ -6,13 +6,14 @@ import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useCoupons } from "../hooks/useCoupons";
 import { useColumns } from "../Columns";
+import ModalCreateCoupon from './ModalCreateCoupon';
 
 interface Props {
   limit: number;
   page: number;
 }
 
-const CouponsTable = ({ limit, page }: Props) => {
+const CouponTable = ({ limit, page }: Props) => {
   const { setLoadingState } = useLoadingState();
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
     pageIndex: page - 1,
@@ -38,7 +39,6 @@ const CouponsTable = ({ limit, page }: Props) => {
 
   return (
     <div className="flex flex-col gap-5">
-      <h1 className="text-2xl font-bold">Cupones</h1>
       <Input
         placeholder="Buscar"
         className="max-w-sm"
@@ -53,8 +53,9 @@ const CouponsTable = ({ limit, page }: Props) => {
         setPagination={setPagination}
         count={count || 0}
       />
+      <ModalCreateCoupon handleMutate={mutate} />
     </div>
   );
 };
 
-export default CouponsTable;
+export default CouponTable;

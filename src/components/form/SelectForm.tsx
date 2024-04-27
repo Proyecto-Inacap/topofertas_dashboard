@@ -32,7 +32,7 @@ const SelectForm: React.FC<InputFormProps> = ({
     <FormField
       control={control}
       name={inputName}
-      render={({ field, formState }) => (
+      render={({ field }) => (
         <FormItem>
           <FormLabel>{label}</FormLabel>
           <FormControl>
@@ -42,11 +42,11 @@ const SelectForm: React.FC<InputFormProps> = ({
               </SelectTrigger>
               <SelectContent >
                 <SelectGroup>
-                    {options?.map((option) => (
-                        <SelectItem key={option.value} value={option.value}>
-                        {option.label}
-                        </SelectItem>
-                    ))}
+                  {options?.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>

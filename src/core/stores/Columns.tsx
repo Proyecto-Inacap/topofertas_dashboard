@@ -64,10 +64,10 @@ export const useColumns = ({ mutate }: Props) => {
             alt="Logo"
             width={200}
             height={50}
-            className="object-contain w-24 h-auto"
+            className="object-contain w-20 h-auto"
           />
         ) : (
-          <ImageOffIcon />
+          <ImageOffIcon size={50} />
 
         );
       },

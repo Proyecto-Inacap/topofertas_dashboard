@@ -4,9 +4,10 @@ import useSWR from "swr";
 
 
 interface Props {
-  limit: number;
-  page: number;
-  searchValue: string;
+  limit?: number;
+  page?: number;
+  searchValue?: string;
+  filters?: object;
 }
 
 interface Response {
@@ -14,9 +15,9 @@ interface Response {
   count: number;
 }
 
-export const useStores = ({ limit, page, searchValue }: Props) => {
-  const query = qs.stringify({ limit, page, searchValue });
 
+export const useStores = ({ limit, page, searchValue, filters }: Props) => {
+  const query = qs.stringify({ limit, page, searchValue, filters: JSON.stringify(filters || {}) });
   const { data, isLoading, mutate } = useSWR<Response>(
     `/stores?${query}`,
     fetcher,

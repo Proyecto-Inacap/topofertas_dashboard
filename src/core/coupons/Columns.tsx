@@ -65,7 +65,6 @@ export const useColumns = ({ mutate }: Props) => {
       accessorKey: "enabled",
       cell: ({ row }) => {
         const enabled = row.original.enabled;
-        console.log(row.original);
         return (
           <Badge variant={enabled ? "default" : "destructive"}>
             {enabled ? "Activo" : "Inactivo"}

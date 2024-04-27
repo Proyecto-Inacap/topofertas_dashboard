@@ -12,6 +12,7 @@ interface Props {
   limit: number;
   page: number;
 }
+
 const StoreTable = ({ limit, page }: Props) => {
   const { setLoadingState } = useLoadingState();
   const [{ pageIndex, pageSize }, setPagination] = useState<PaginationState>({
@@ -25,6 +26,7 @@ const StoreTable = ({ limit, page }: Props) => {
     page: pageIndex,
     searchValue,
   });
+
   const columns = useColumns({ mutate });
 
   useEffect(() => {
@@ -51,8 +53,8 @@ const StoreTable = ({ limit, page }: Props) => {
         pageSize={pageSize}
         setPagination={setPagination}
         count={count || 0}
-        />
-        <ModalCreateStore handleMutate={mutate} />
+      />
+      <ModalCreateStore handleMutate={mutate} />
     </div>
   );
 };
