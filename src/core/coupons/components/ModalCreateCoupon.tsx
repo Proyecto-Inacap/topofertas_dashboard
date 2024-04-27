@@ -96,7 +96,7 @@ const ModalCreateCoupon = ({ handleMutate }: Props) => {
           <TextAreaForm
             control={form.control}
             label="Descripción"
-            inputName="logoImage"
+            inputName="description"
           />
           <ComboboxForm
             control={form.control}
