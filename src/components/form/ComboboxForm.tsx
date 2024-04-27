@@ -32,7 +32,6 @@ const ComboboxForm: React.FC<ComboboxFormProps> = ({
   description,
   options
 }) => {
-  console.log(options);
   return (
     <FormField
       control={control}

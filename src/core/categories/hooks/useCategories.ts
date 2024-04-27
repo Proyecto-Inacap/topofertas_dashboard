@@ -22,7 +22,6 @@ export const useCategories = ({ limit, page, searchValue }: Props) => {
   const { data, isLoading, mutate } = useSWR<Response>(`/categories?${query}`, fetcher, {
     keepPreviousData: true
   })
-  console.log(data)
 
   return {
     categories: data?.categories,

@@ -10,7 +10,7 @@ import { z } from "zod";
 import { useStoreModal } from '@/store/stores/useStoreModal';
 import { storeApi } from '../api/storeApi';
 import FileInputForm from '@/components/form/FileInputForm';
-import axios from 'axios';
+import { AxiosError } from 'axios';
 
 const formSchema = z.object({
   name: z.string({
@@ -23,7 +23,7 @@ interface Props {
   handleMutate: () => void;
 }
 
-const ModalCreateStore = ({handleMutate}:Props) => {
+const ModalCreateStore = ({ handleMutate }: Props) => {
   const { isOpen, setIsOpen } = useStoreModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -34,41 +34,41 @@ const ModalCreateStore = ({handleMutate}:Props) => {
     }
   });
 
-  const {formState:{ isSubmitting }, reset} = form;
+  const { formState: { isSubmitting }, reset } = form;
 
-  const {toast} = useToast();
+  const { toast } = useToast();
 
-  const handleOnSubmit = async(data: z.infer<typeof formSchema>) => {
-    if(isSubmitting) return;
+  const handleOnSubmit = async (data: z.infer<typeof formSchema>) => {
+    if (isSubmitting) return;
     const toaster = toast({
       toastType: 'loading',
       description: 'Creando tienda...',
     })
-   try {
-    const formData = new FormData();
-    formData.append('name', data.name);
-    formData.append('logoImage', data.logoImage as File);
-    const response = await storeApi.create(formData);
+    try {
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('logoImage', data.logoImage as File);
+      const response = await storeApi.create(formData);
 
-    if(response.status !== 200) {
-      throw new Error('Error al crear la tienda')
+      if (response.status !== 200) {
+        throw new Error('Error al crear la tienda')
+      }
+      handleMutate();
+      setIsOpen(false);
+      reset({
+        name: '',
+        logoImage: undefined,
+      });
+      toaster.update({
+        toastType: 'success',
+        description: 'Tienda creada correctamente',
+      })
+    } catch (error: any) {
+      toaster.update({
+        toastType: 'error',
+        description: error?.response?.data?.message || 'Error al crear la tienda',
+      })
     }
-    handleMutate();
-    setIsOpen(false);
-    reset({
-      name: '',
-      logoImage: undefined,
-    });
-    toaster.update({
-      toastType: 'success',
-      description: 'Tienda creada correctamente',
-    })
-   } catch (error) {
-    toaster.update({
-      toastType: 'error',
-      description: 'Error al crear la tienda',
-    })
-   }
   };
 
   return (
@@ -78,7 +78,7 @@ const ModalCreateStore = ({handleMutate}:Props) => {
       setIsOpen={setIsOpen}
       buttonLabel="Crear"
       onConfirm={form.handleSubmit(handleOnSubmit)}
-      isDisabled={ isSubmitting}
+      isDisabled={isSubmitting}
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleOnSubmit)}>

@@ -20,42 +20,45 @@ interface Props {
   handleMutate: () => void;
 }
 
-const ModalCreateCategory = ({handleMutate}:Props) => {
+const defaultValues = {
+  name: '',
+}
+
+const ModalCreateCategory = ({ handleMutate }: Props) => {
   const { isOpen, setIsOpen } = useCategoryModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: ''
-    }
+    defaultValues
   });
 
-  const {formState:{ isSubmitting}} = form;
+  const { formState: { isSubmitting }, reset } = form;
 
-  const {toast} = useToast();
+  const { toast } = useToast();
 
-  const handleOnSubmit = async(data: z.infer<typeof formSchema>) => {
-    if(isSubmitting) return;
+  const handleOnSubmit = async (data: z.infer<typeof formSchema>) => {
+    if (isSubmitting) return;
     const toaster = toast({
       toastType: 'loading',
       description: 'Creando categoría...',
     })
-   try {
-    const response = await categoryApi.create(data);
+    try {
+      const response = await categoryApi.create(data);
 
-    if(response.status !== 200) {throw new Error('Error al crear categoría')}
-    handleMutate();
-    setIsOpen(false);
-    toaster.update({
-      toastType: 'success',
-      description: 'Categoría creada correctamente',
-    })
-   } catch (error) {
-    toaster.update({
-      toastType: 'error',
-      description: 'Error al crear categoría',
-    })
-   }
+      if (response.status !== 200) { throw new Error('Error al crear categoría') }
+      handleMutate();
+      setIsOpen(false);
+      reset(defaultValues);
+      toaster.update({
+        toastType: 'success',
+        description: 'Categoría creada correctamente',
+      })
+    } catch (error: any) {
+      toaster.update({
+        toastType: 'error',
+        description: error?.response?.data?.message || 'Error al crear categoría',
+      })
+    }
   };
 
   return (
@@ -65,7 +68,7 @@ const ModalCreateCategory = ({handleMutate}:Props) => {
       setIsOpen={setIsOpen}
       buttonLabel="Crear"
       onConfirm={form.handleSubmit(handleOnSubmit)}
-      isDisabled={ isSubmitting}
+      isDisabled={isSubmitting}
     >
       <Form {...form}>
         <form>

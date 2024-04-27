@@ -10,6 +10,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { userApi } from "../api/userApi";
+import { useToast } from '@/components/ui/use-toast';
 
 const formSchema = z.object({
   username: z
@@ -30,32 +31,47 @@ interface ModalCreateUserProps {
   handleMutate: () => void;
 }
 
+const defaultValues = {
+  username: "",
+  email: "",
+  password: "",
+  gender: "",
+  userRoleId: "",
+}
+
 const ModalCreateUser: React.FC<ModalCreateUserProps> = ({
   handleMutate,
 }) => {
   const { isOpen, setIsOpen } = useUserModal();
-
+  const { toast } = useToast();
   const { userRoles } = useUserRoles();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      username: "",
-      email: "",
-      password: "",
-      gender: "",
-      userRoleId: "",
-    },
+    defaultValues
   });
+  const { formState: { isSubmitting }, reset } = form;
+
   const handleOnSubmit = async (data: z.infer<typeof formSchema>) => {
-    // TODO: crear toast y cosas validaciones
+    if (isSubmitting) return;
+    const toaster = toast({
+      toastType: 'loading',
+      description: 'Creando usuario...',
+    })
     try {
       const response = await userApi.create(data);
-      if (response) {
-        handleMutate();
-        setIsOpen(false);
-      }
-    } catch (error) {
-      console.error(error);
+      if (response.status !== 200) { throw new Error('Error al crear usuario') }
+      handleMutate();
+      setIsOpen(false);
+      reset(defaultValues);
+      toaster.update({
+        toastType: 'success',
+        description: 'Categoría creada correctamente',
+      })
+    } catch (error: any) {
+      toaster.update({
+        toastType: 'error',
+        description: error?.response?.data?.message || 'Error al crear categoría',
+      })
     }
   };
 
