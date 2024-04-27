@@ -9,8 +9,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ImageOffIcon } from "lucide-react";
 
 import { useToast } from "@/components/ui/use-toast";
-import Image from "next/image";
 import { storeApi } from "./api/storeApi";
+import {CldImage} from 'next-cloudinary'
 
 interface Props {
   mutate: () => void;
@@ -59,16 +59,16 @@ export const useColumns = ({ mutate }: Props) => {
       cell: ({ row }) => {
         const value = row.original.logoImage;
         return value ? (
-          <Image
+          <CldImage
             src={value}
             alt="Logo"
             width={200}
             height={50}
             className="object-contain w-20 h-auto"
+            
           />
         ) : (
           <ImageOffIcon size={50} />
-
         );
       },
     },
