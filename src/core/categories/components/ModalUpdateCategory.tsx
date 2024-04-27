@@ -35,7 +35,7 @@ const ModalUpdateCategory = ({ handleMutate }: Props) => {
     defaultValues
   });
 
-  const { formState: { isSubmitting }, reset } = form;
+  const { formState: { isSubmitting, isDirty }, reset } = form;
 
   const { toast } = useToast();
 
@@ -51,7 +51,6 @@ const ModalUpdateCategory = ({ handleMutate }: Props) => {
       if (response.status !== 200) { throw new Error('Error al actualizar categoría') }
       handleMutate();
       setUpdateIsOpen(null);
-      // reset(defaultValues);
       toaster.update({
         toastType: 'success',
         description: 'Categoría actualizada correctamente',
@@ -77,7 +76,7 @@ const ModalUpdateCategory = ({ handleMutate }: Props) => {
       setIsOpen={() => setUpdateIsOpen(null)}
       buttonLabel="Actualizar"
       onConfirm={form.handleSubmit(handleOnSubmit)}
-      isDisabled={isSubmitting}
+      isDisabled={isSubmitting || !isDirty}
     >
       <Form {...form}>
         <form>
