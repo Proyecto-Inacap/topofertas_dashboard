@@ -2,12 +2,12 @@ import ActionsDropDown from "@/components/table/ActionsDropDown";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
-import { API } from "@/config";
 import { checkboxColumn, TooltipRender } from "@/utils/tables/renders";
 import { ColumnDef } from "@tanstack/react-table";
 
 import { categoryApi } from "./api/categoryApi";
 import { Category } from "./types";
+import { useCategoryModal } from '@/store/categories/useCategoryModal';
 
 interface Props {
   mutate: () => void;
@@ -15,6 +15,7 @@ interface Props {
 
 export const useColumns = ({ mutate }: Props) => {
   const { toast, toasts } = useToast();
+  const { setUpdateIsOpen } = useCategoryModal();
   const isLoading = toasts.some((t) => t.toastType === "loading");
 
   const handleChange = async (id: string, enabled: boolean) => {
@@ -70,6 +71,11 @@ export const useColumns = ({ mutate }: Props) => {
               onClick={() => handleChange(category.id, category.enabled)}
             >
               {category.enabled ? "Desactivar" : "Activar"}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => setUpdateIsOpen(category)}
+            >
+              Actualizar
             </DropdownMenuItem>
           </ActionsDropDown>
         );

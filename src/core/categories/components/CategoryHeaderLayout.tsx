@@ -4,19 +4,17 @@ import { useCategoryModal } from '@/store/categories/useCategoryModal';
 import React from 'react'
 
 const CategoryHeaderLayout = () => {
-  const {  setIsOpen } = useCategoryModal();
+  const { setCreateIsOpen } = useCategoryModal();
 
   return (
     <div className='flex justify-between mb-2'>
       <h1 className="text-2xl font-bold">Categorías</h1>
-        <Button
-          onClick={() => {
-            setIsOpen(true);
-          }}
-        >
-          Crear Categoría
-        </Button>
-    </div>
+      <Button
+        onClick={() => setCreateIsOpen(true)}
+      >
+        Crear Categoría
+      </Button>
+    </div >
   )
 }
 

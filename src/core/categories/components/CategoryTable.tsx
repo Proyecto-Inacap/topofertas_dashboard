@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useColumns } from "../Columns";
 import { useCategories } from "../hooks/useCategories";
 import ModalCreateCategory from './ModalCreateCategory';
+import ModalUpdateCategory from './ModalUpdateCategory';
 
 interface Props {
   limit: number;
@@ -53,6 +54,7 @@ const CategoryTable = ({ limit, page }: Props) => {
         count={count || 0}
         />
       <ModalCreateCategory handleMutate={mutate} />
+      <ModalUpdateCategory handleMutate={mutate} />
     </div>
   );
 };

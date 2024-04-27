@@ -5,12 +5,13 @@ import { Form } from "@/components/ui/form";
 import { useToast } from '@/components/ui/use-toast';
 import { useCategoryModal } from '@/store/categories/useCategoryModal';
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { categoryApi } from '../api/categoryApi';
 
 const formSchema = z.object({
+  id: z.string(),
   name: z.string({
     required_error: "El nombre es requerido",
   }).min(3, "El nombre debe tener al menos 3 caracteres"),
@@ -21,11 +22,13 @@ interface Props {
 }
 
 const defaultValues = {
+  id: '',
   name: '',
 }
 
-const ModalCreateCategory = ({ handleMutate }: Props) => {
-  const { createIsOpen, setCreateIsOpen } = useCategoryModal();
+const ModalUpdateCategory = ({ handleMutate }: Props) => {
+  const { updateIsOpen, setUpdateIsOpen } = useCategoryModal();
+
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,37 +39,43 @@ const ModalCreateCategory = ({ handleMutate }: Props) => {
 
   const { toast } = useToast();
 
-  const handleOnSubmit = async (data: z.infer<typeof formSchema>) => {
+  const handleOnSubmit = async ({ id, ...data }: z.infer<typeof formSchema>) => {
     if (isSubmitting) return;
     const toaster = toast({
       toastType: 'loading',
-      description: 'Creando categoría...',
+      description: 'Actualizando categoría...',
     })
     try {
-      const response = await categoryApi.create(data);
+      const response = await categoryApi.update(id, data);
 
-      if (response.status !== 200) { throw new Error('Error al crear categoría') }
+      if (response.status !== 200) { throw new Error('Error al actualizar categoría') }
       handleMutate();
-      setCreateIsOpen(false);
-      reset(defaultValues);
+      setUpdateIsOpen(null);
+      // reset(defaultValues);
       toaster.update({
         toastType: 'success',
-        description: 'Categoría creada correctamente',
+        description: 'Categoría actualizada correctamente',
       })
     } catch (error: any) {
       toaster.update({
         toastType: 'error',
-        description: error?.response?.data?.message || 'Error al crear categoría',
+        description: error?.response?.data?.message || 'Error al actualizar categoría',
       })
     }
   };
 
+  useEffect(() => {
+    if (updateIsOpen) {
+      reset(updateIsOpen);
+    }
+  }, [updateIsOpen, reset])
+
   return (
     <Modal
-      title="Crear Categoría"
-      isOpen={createIsOpen}
-      setIsOpen={setCreateIsOpen}
-      buttonLabel="Crear"
+      title="Actualizar Categoría"
+      isOpen={updateIsOpen !== null}
+      setIsOpen={() => setUpdateIsOpen(null)}
+      buttonLabel="Actualizar"
       onConfirm={form.handleSubmit(handleOnSubmit)}
       isDisabled={isSubmitting}
     >
@@ -83,4 +92,4 @@ const ModalCreateCategory = ({ handleMutate }: Props) => {
   );
 };
 
-export default ModalCreateCategory;
+export default ModalUpdateCategory;
