@@ -4,18 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-interface NavListProps {
+interface NavListProps extends React.HTMLAttributes<HTMLDivElement> {
   navLinks: {
     title: string;
     href: string;
   }[];
 }
 
-const NavList: React.FC<NavListProps> = ({ navLinks }) => {
+const NavList: React.FC<NavListProps> = ({ navLinks,className }) => {
   const pathname = usePathname();
 
   return (
-    <nav className="flex gap-6">
+    <nav className={cn("flex gap-4 lg:gap-8 items-center lg:flex",className)}>
       {navLinks?.map(
         (item, index) =>
           item.href && (

@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +19,7 @@ interface ModalProps {
   buttonLabel?: string;
   onConfirm?: () => void;
   isDisabled?: boolean;
+  className?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -29,10 +31,11 @@ const Modal: React.FC<ModalProps> = ({
   buttonLabel,
   onConfirm,
   isDisabled,
+  className
 }) => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent>
+      <DialogContent className={className}>
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>

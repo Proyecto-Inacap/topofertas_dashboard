@@ -1,9 +1,11 @@
 import { PERMISSIONS } from "@/permissions";
+import {BarChart, LucideIcon} from 'lucide-react'
 
 type NavLink = {
   title: string;
   href: string;
   permission: keyof typeof PERMISSIONS;
+  icon?: LucideIcon;
 };
 
 export const navLinks: NavLink[] = [
@@ -11,11 +13,13 @@ export const navLinks: NavLink[] = [
     title: "Analítica",
     href: "/analytics",
     permission: "ALL",
+    icon: BarChart
   },
   {
     title: "Productos",
     href: "/products",
     permission: "DASHBOARD_MANAGER",
+    icon: BarChart
   },
   {
     title: "Reportes",
