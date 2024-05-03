@@ -1,6 +1,6 @@
+import HeaderLayout from "@/components/HeaderLayout";
 import { LIMITS } from "@/constants";
-import StoreHeaderLayout from '@/core/stores/components/StoreHeaderLayout';
-import StoreTable from '@/core/stores/components/StoreTable';
+import StoreTable from "@/core/stores/components/StoreTable";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -24,8 +24,8 @@ const StoresPage = ({ searchParams: { limit, page } }: Props) => {
 
   return (
     <>
-  <StoreHeaderLayout />
-  <StoreTable limit={limitValue} page={pageValue} />
+      <HeaderLayout title="Tiendas" buttonLabel="Crear Tienda" />
+      <StoreTable limit={limitValue} page={pageValue} />
     </>
   );
 };

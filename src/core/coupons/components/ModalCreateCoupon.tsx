@@ -14,6 +14,7 @@ import SelectForm from '@/components/form/SelectForm';
 import { useStores } from '@/core/stores/hooks/useStores';
 import ComboboxForm from '@/components/form/ComboboxForm';
 import { useCouponsModal } from '@/store/coupons/useCouponsModal';
+import { useCreateModal } from "@/store/useCreateModal";
 
 const formSchema = z.object({
   code: z.string({
@@ -32,7 +33,7 @@ interface Props {
 }
 
 const ModalCreateCoupon = ({ handleMutate }: Props) => {
-  const { isOpen, setIsOpen } = useCouponsModal();
+  const { isOpen, setIsOpen } = useCreateModal();
   const { stores } = useStores({ filters: { enabled: true } });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

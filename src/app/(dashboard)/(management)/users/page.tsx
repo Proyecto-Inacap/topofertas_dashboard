@@ -1,5 +1,5 @@
+import HeaderLayout from "@/components/HeaderLayout";
 import { LIMITS } from "@/constants";
-import UserHeaderLayout from "@/core/users/components/UserHeaderLayout";
 import UsersTable from "@/core/users/components/UsersTable";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -23,10 +23,10 @@ const UsersPage = ({ searchParams: { limit, page } }: Props) => {
   }
 
   return (
-    <div>
-      <UserHeaderLayout />
+    <>
+      <HeaderLayout title="Usuarios" buttonLabel="Crear Usuario" />
       <UsersTable limit={limitValue} page={pageValue} />
-    </div>
+    </>
   );
 };
 

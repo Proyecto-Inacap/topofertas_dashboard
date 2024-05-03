@@ -7,10 +7,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useStoreModal } from '@/store/stores/useStoreModal';
 import { storeApi } from '../api/storeApi';
 import FileInputForm from '@/components/form/FileInputForm';
 import { AxiosError } from 'axios';
+import { useCreateModal } from "@/store/useCreateModal";
 
 const formSchema = z.object({
   name: z.string({
@@ -24,7 +24,7 @@ interface Props {
 }
 
 const ModalCreateStore = ({ handleMutate }: Props) => {
-  const { isOpen, setIsOpen } = useStoreModal();
+  const { createIsOpen, setCreateIsOpen } = useCreateModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -54,7 +54,7 @@ const ModalCreateStore = ({ handleMutate }: Props) => {
         throw new Error('Error al crear la tienda')
       }
       handleMutate();
-      setIsOpen(false);
+      setCreateIsOpen(false);
       reset({
         name: '',
         logoImage: undefined,
@@ -74,8 +74,8 @@ const ModalCreateStore = ({ handleMutate }: Props) => {
   return (
     <Modal
       title="Crear Tienda"
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
+      isOpen={createIsOpen}
+      setIsOpen={setCreateIsOpen}
       buttonLabel="Crear"
       onConfirm={form.handleSubmit(handleOnSubmit)}
       isDisabled={isSubmitting}

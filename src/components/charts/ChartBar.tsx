@@ -18,6 +18,12 @@ interface ChartBarProps {
 const ChartBar: React.FC<ChartBarProps> = ({data}) => {
   const [goal, setGoal] = React.useState(350);
 
+  // Es para evitar el error en consola de defaultProps del Recharts
+  const error = console.error;
+  console.error = (...args: any) => {
+    if (/defaultProps/.test(args[0])) return;
+    error(...args);
+  };
   function onClick(adjustment: number) {
     setGoal(Math.max(200, Math.min(400, goal + adjustment)));
   }

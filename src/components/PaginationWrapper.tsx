@@ -88,7 +88,7 @@ const PaginationWrapper: React.FC<PaginationProps> = ({
   };
 
   return (
-    <Pagination className="justify-between p-4">
+    <Pagination className="justify-between p-4 flex-wrap gap-4 ">
       <PaginationContent>
         <Select
           value={pageSize.toString()}
@@ -111,7 +111,7 @@ const PaginationWrapper: React.FC<PaginationProps> = ({
           </SelectContent>
         </Select>
       </PaginationContent>
-      <PaginationContent>
+      <PaginationContent >
         <PaginationPrevious
           variant={"default"}
           disabled={pageIndex === 0}

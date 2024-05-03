@@ -1,6 +1,6 @@
+import HeaderLayout from "@/components/HeaderLayout";
 import { LIMITS } from "@/constants";
-import CouponHeaderLayout from '@/core/coupons/components/CouponHeaderLayout';
-import CouponTable from '@/core/coupons/components/CouponTable';
+import CouponTable from "@/core/coupons/components/CouponTable";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -24,7 +24,7 @@ const CouponPage = ({ searchParams: { limit, page } }: Props) => {
 
   return (
     <>
-      <CouponHeaderLayout />
+      <HeaderLayout title="Cupones" buttonLabel="Crear Cupón" />
       <CouponTable limit={limitValue} page={pageValue} />
     </>
   );

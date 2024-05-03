@@ -4,6 +4,7 @@ import React from "react";
 import { LucideIcon, MenuIcon } from "lucide-react";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTrigger,
@@ -28,15 +29,16 @@ const Sidebar: React.FC<SidebarProps> = ({ items, className }) => {
           <SheetHeader>
             <h2 className="text-lg font-semibold">Falabella</h2>
           </SheetHeader>
-          <div className={cn("flex flex-col gap-8 mt-4 ")}>
+          <div className={cn("flex flex-col gap-8 mt-4 pl-6 ")}>
             {items?.map((item, index) => (
               <Link
                 key={index}
                 href={item.href}
-                className="flex text-sm font-medium text-muted-foreground/80 hover:text-foreground/80 transition-colors duration-200 items-end gap-4"
               >
-                {item.title}
-                {item.icon && <item.icon className="w-6 h-6" />}
+                <SheetClose className="flex text-sm font-medium text-muted-foreground/80 hover:text-foreground/80 transition-colors duration-200 items-end gap-4 w-full">
+                  {item.icon && <item.icon className="w-6 h-6" />}
+                  {item.title}
+                </SheetClose>
               </Link>
             ))}
           </div>

@@ -1,5 +1,5 @@
+import HeaderLayout from "@/components/HeaderLayout";
 import { LIMITS } from "@/constants";
-import CategoryHeaderLayout from '@/core/categories/components/CategoryHeaderLayout';
 import CategoryTable from "@/core/categories/components/CategoryTable";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -25,8 +25,11 @@ const CategoryPage = ({ searchParams: { limit, page } }: Props) => {
 
   return (
     <>
-    <CategoryHeaderLayout />
-  <CategoryTable limit={limitValue} page={pageValue} />
+      <HeaderLayout
+        title="Categorias"
+        buttonLabel="Crear Categoria"
+      />
+      <CategoryTable limit={limitValue} page={pageValue} />
     </>
   );
 };

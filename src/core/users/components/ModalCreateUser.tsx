@@ -4,13 +4,13 @@ import SelectForm from "@/components/form/SelectForm";
 import Modal from "@/components/modals/Modal";
 import { Form } from "@/components/ui/form";
 import { useUserRoles } from "@/core/userRoles/hooks/useUserRoles";
-import { useUserModal } from "@/store/users/useUserModal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { userApi } from "../api/userApi";
 import { useToast } from '@/components/ui/use-toast';
+import { useCreateModal } from "@/store/useCreateModal";
 
 const formSchema = z.object({
   username: z
@@ -42,7 +42,7 @@ const defaultValues = {
 const ModalCreateUser: React.FC<ModalCreateUserProps> = ({
   handleMutate,
 }) => {
-  const { isOpen, setIsOpen } = useUserModal();
+  const { createIsOpen,setCreateIsOpen } = useCreateModal();
   const { toast } = useToast();
   const { userRoles } = useUserRoles();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -61,7 +61,7 @@ const ModalCreateUser: React.FC<ModalCreateUserProps> = ({
       const response = await userApi.create(data);
       if (response.status !== 200) { throw new Error('Error al crear usuario') }
       handleMutate();
-      setIsOpen(false);
+      setCreateIsOpen(false);
       reset(defaultValues);
       toaster.update({
         toastType: 'success',
@@ -78,8 +78,8 @@ const ModalCreateUser: React.FC<ModalCreateUserProps> = ({
   return (
     <Modal
       title="Crear Usuario"
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
+      isOpen={createIsOpen}
+      setIsOpen={setCreateIsOpen}
       buttonLabel="Crear"
       onConfirm={form.handleSubmit(handleOnSubmit)}
     >

@@ -7,7 +7,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 import { categoryApi } from "./api/categoryApi";
 import { Category } from "./types";
-import { useCategoryModal } from '@/store/categories/useCategoryModal';
+import { useUpdateModal } from "@/store/useUpdateModal";
 
 interface Props {
   mutate: () => void;
@@ -15,7 +15,7 @@ interface Props {
 
 export const useColumns = ({ mutate }: Props) => {
   const { toast, toasts } = useToast();
-  const { setUpdateIsOpen } = useCategoryModal();
+  const { setUpdateIsOpen } = useUpdateModal();
   const isLoading = toasts.some((t) => t.toastType === "loading");
 
   const handleChange = async (id: string, enabled: boolean) => {

@@ -3,12 +3,12 @@ import InputForm from "@/components/form/InputForm";
 import Modal from "@/components/modals/Modal";
 import { Form } from "@/components/ui/form";
 import { useToast } from '@/components/ui/use-toast';
-import { useCategoryModal } from '@/store/categories/useCategoryModal';
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { categoryApi } from '../api/categoryApi';
+import { useCreateModal } from "@/store/useCreateModal";
 
 const formSchema = z.object({
   name: z.string({
@@ -25,7 +25,7 @@ const defaultValues = {
 }
 
 const ModalCreateCategory = ({ handleMutate }: Props) => {
-  const { createIsOpen, setCreateIsOpen } = useCategoryModal();
+  const { createIsOpen, setCreateIsOpen } = useCreateModal();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

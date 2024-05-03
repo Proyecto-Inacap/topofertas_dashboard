@@ -1,5 +1,5 @@
 import { PERMISSIONS } from "@/permissions";
-import {BarChart, LucideIcon} from 'lucide-react'
+import {BarChart, FlagTriangleRight, Grid2X2, LucideIcon, ReceiptText, ScanBarcode, Store, User} from 'lucide-react'
 
 type NavLink = {
   title: string;
@@ -19,31 +19,38 @@ export const navLinks: NavLink[] = [
     title: "Productos",
     href: "/products",
     permission: "DASHBOARD_MANAGER",
-    icon: BarChart
+    icon: ScanBarcode
   },
   {
     title: "Reportes",
     href: "/reports",
     permission: "DASHBOARD_MANAGER",
+    icon: FlagTriangleRight
   },
   {
     title: "Categorias",
     href: "/categories",
     permission: "DASHBOARD_MANAGER",
+    icon: Grid2X2
   },
   {
     title: "Usuarios",
     href: "/users",
     permission: "DASHBOARD_MANAGER",
+    icon: User
   },
   {
     title: "Tiendas",
     href: "/stores",
     permission: "DASHBOARD_MANAGER",
+    icon: Store
+
   },
   {
     title: "Cupones",
     href: "/coupons",
     permission: "DASHBOARD_MANAGER",
+    icon: ReceiptText
+
   },
 ];
