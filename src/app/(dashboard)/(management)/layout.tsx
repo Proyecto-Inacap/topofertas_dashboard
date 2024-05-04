@@ -1,4 +1,4 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/options';
+import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import NotFoundPage from "@/components/notFound/NotFoundPage";
 import { HasPermissions } from "@/core/session/components/hasPermission";
 import { getServerSession } from "next-auth";
@@ -15,5 +15,5 @@ export default async function Layout({
     role: session?.user.userRole.type,
   });
 
-  return hasPermissions ?  children  : <NotFoundPage />;
+  return hasPermissions ? children : <NotFoundPage />;
 }

@@ -7,14 +7,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useStoreModal } from '@/store/stores/useStoreModal';
 import { couponApi } from '../api/couponApi';
 import TextAreaForm from '@/components/form/TextAreaForm';
-import SelectForm from '@/components/form/SelectForm';
 import { useStores } from '@/core/stores/hooks/useStores';
 import ComboboxForm from '@/components/form/ComboboxForm';
-import { useCouponsModal } from '@/store/coupons/useCouponsModal';
 import { useCreateModal } from "@/store/useCreateModal";
+import SelectForm from "@/components/form/SelectForm";
 
 const formSchema = z.object({
   code: z.string({
@@ -33,7 +31,7 @@ interface Props {
 }
 
 const ModalCreateCoupon = ({ handleMutate }: Props) => {
-  const { isOpen, setIsOpen } = useCreateModal();
+  const { createIsOpen,setCreateIsOpen } = useCreateModal();
   const { stores } = useStores({ filters: { enabled: true } });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,7 +59,7 @@ const ModalCreateCoupon = ({ handleMutate }: Props) => {
         throw new Error('Error al crear la cupón')
       }
       handleMutate();
-      setIsOpen(false);
+      setCreateIsOpen(false);
       reset({
         code: '',
         description: '',
@@ -82,8 +80,8 @@ const ModalCreateCoupon = ({ handleMutate }: Props) => {
   return (
     <Modal
       title="Crear Cupón"
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
+      isOpen={createIsOpen}
+      setIsOpen={setCreateIsOpen}
       buttonLabel="Crear"
       onConfirm={form.handleSubmit(handleOnSubmit)}
       isDisabled={isSubmitting}
@@ -100,7 +98,7 @@ const ModalCreateCoupon = ({ handleMutate }: Props) => {
             label="Descripción"
             inputName="description"
           />
-          <ComboboxForm
+          <SelectForm
             control={form.control}
             label="Tienda"
             inputName="storeId"

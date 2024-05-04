@@ -1,6 +1,7 @@
 import { fetcher } from "@/utils/fetcher";
 import qs from "query-string";
 import useSWR from "swr";
+import { Store } from "../types";
 
 
 interface Props {

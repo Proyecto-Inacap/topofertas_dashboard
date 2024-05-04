@@ -11,7 +11,7 @@ export default function Layout({
 }>) {
   return (
     <Fragment>
-      <div className="flex-1">
+      <div className="flex-1 min-h-[200vh]">
         <MainNav />
         <Container className={"py-4 w-[90%]"}>{children}</Container>
       </div>
