@@ -1,3 +1,5 @@
+import { Favorite } from '../favorites/type'
+import { Rating } from '../ratings/type'
 import { UserRole } from "../userRoles/types"
 
 export type User = {

@@ -1,3 +1,5 @@
+import { Product } from '../products/types'
+
 export type Category = {
   id: string
   name: string

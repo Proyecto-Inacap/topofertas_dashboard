@@ -1,6 +1,8 @@
 import { fetcher } from '@/utils/fetcher'
-import useSWR from 'swr'
 import qs from 'query-string'
+import useSWR from 'swr'
+
+import { Product } from '../types'
 
 interface Props {
   limit: number

@@ -1,16 +1,14 @@
 import ActionsDropDown from "@/components/table/ActionsDropDown";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
-import {
-  checkboxColumn,
-  TooltipRender,
-} from "@/utils/tables/renders";
+import { useToast } from "@/components/ui/use-toast";
+import { checkboxColumn, TooltipRender } from "@/utils/tables/renders";
 import { ColumnDef } from "@tanstack/react-table";
 import { ImageOffIcon } from "lucide-react";
-
-import { useToast } from "@/components/ui/use-toast";
-import { storeApi } from "./api/storeApi";
 import { CldImage } from 'next-cloudinary'
+
+import { storeApi } from "./api/storeApi";
+import { Store } from './types';
 
 interface Props {
   mutate: () => void;

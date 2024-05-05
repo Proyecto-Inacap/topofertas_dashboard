@@ -2,14 +2,11 @@ import ActionsDropDown from "@/components/table/ActionsDropDown";
 import { Badge } from "@/components/ui/badge";
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
-import {
-  checkboxColumn,
-  renderLink,
-  renderPrice,
-  TooltipRender,
-} from "@/utils/tables/renders";
+import { checkboxColumn, renderLink, renderPrice, TooltipRender } from "@/utils/tables/renders";
 import { ColumnDef } from "@tanstack/react-table";
+
 import { productApi } from "./api/productApi";
+import { Product } from './types';
 
 interface Props {
   mutate: () => void;

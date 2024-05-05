@@ -1,6 +1,5 @@
-import { Characteristic } from '@/components/characteristics/types'
-
 import { Category } from '../categories/types'
+import { Characteristic } from '../characteristics/types'
 import { Comment } from '../comments/type'
 import { Favorite } from '../favorites/type'
 import { HistoricalPrice } from '../historicalPrices/type'
