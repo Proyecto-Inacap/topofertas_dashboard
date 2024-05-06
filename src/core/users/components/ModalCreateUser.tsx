@@ -23,7 +23,7 @@ const formSchema = z.object({
   password: z
     .string()
     .min(6, "La contraseña debe tener al menos 6 caracteres"),
-  gender: z.string(),
+  // gender: z.string(),
   userRoleId: z.string(),
 });
 
@@ -35,7 +35,7 @@ const defaultValues = {
   username: "",
   email: "",
   password: "",
-  gender: "",
+  // gender: "",
   userRoleId: "",
 }
 
@@ -104,7 +104,7 @@ const ModalCreateUser: React.FC<ModalCreateUserProps> = ({
             placeholder="Ingrese un email"
             type="password"
           />
-          <SelectForm
+          {/* <SelectForm
             control={form.control}
             label="Género"
             inputName="gender"
@@ -114,7 +114,7 @@ const ModalCreateUser: React.FC<ModalCreateUserProps> = ({
               { value: "Mujer", label: "Mujer" },
               { value: "Otro", label: "Otro" },
             ]}
-          />
+          /> */}
           <SelectForm
             control={form.control}
             label="Rol"

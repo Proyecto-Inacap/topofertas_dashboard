@@ -1,14 +1,14 @@
 import { fetcher } from "@/utils/fetcher";
 import qs from "query-string";
 import useSWR from "swr";
-import { Store } from "../types";
 
+import { Store } from "../types";
 
 interface Props {
   limit?: number;
   page?: number;
   searchValue?: string;
-  filters?: object;
+  enabled?: boolean;
 }
 
 interface Response {
@@ -16,9 +16,8 @@ interface Response {
   count: number;
 }
 
-
-export const useStores = ({ limit, page, searchValue, filters }: Props) => {
-  const query = qs.stringify({ limit, page, searchValue, filters: JSON.stringify(filters || {}) });
+export const useStores = ({ limit, page, searchValue, enabled }: Props) => {
+  const query = qs.stringify({ limit, page, searchValue, enabled });
   const { data, isLoading, mutate } = useSWR<Response>(
     `/stores?${query}`,
     fetcher,

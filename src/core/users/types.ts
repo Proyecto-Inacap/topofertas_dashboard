@@ -1,11 +1,12 @@
 import { Favorite } from '../favorites/type'
+import { Preference } from '../preferences/types'
 import { Rating } from '../ratings/type'
 import { UserRole } from "../userRoles/types"
 
 export type User = {
   id: string
   username: string
-  gender: string
+  preferences: Preference[]
   email: string
   password: string
   status: boolean

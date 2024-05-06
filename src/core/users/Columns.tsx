@@ -55,13 +55,13 @@ export const useColumns = ({ mutate }: Props) => {
         return <TooltipRender value={value} />;
       },
     },
-    {
-      header: "Género",
-      cell: ({ row }) => {
-        const value = row.original?.gender || "No especificado";
-        return <TooltipRender value={value} />;
-      },
-    },
+    // {
+    //   header: "Género",
+    //   cell: ({ row }) => {
+    //     const value = row.original?.gender || "No especificado";
+    //     return <TooltipRender value={value} />;
+    //   },
+    // },
     {
       header: "Rol",
       cell: ({ row }) => {

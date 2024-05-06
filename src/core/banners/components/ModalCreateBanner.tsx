@@ -21,7 +21,7 @@ interface Props {
 
 const ModalCreateBanner = ({ handleMutate }: Props) => {
   const { createIsOpen, setCreateIsOpen } = useCreateModal();
-  const {stores} = useStores({ filters: { enabled: true } });
+  const { stores } = useStores({ enabled: true });
 
   const form = useForm<BannerSchema>({
     resolver: zodResolver(BannerFormSchema),
